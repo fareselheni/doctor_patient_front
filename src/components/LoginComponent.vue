@@ -1,11 +1,12 @@
 <template>
-  <div class="col-md-12">
+  <div class="col-xs-12 mx-auto" style="width: 400px;">
     <div class="card card-container">
-      <img
+      
+      <!-- <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
-      />
+      /> -->
       <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
           <label for="email">Email</label>
