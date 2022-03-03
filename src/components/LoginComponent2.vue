@@ -1,28 +1,28 @@
 <template>
- <div class="f">
+ <div class="container">
     <div class="row no-gutter">
         <!-- The image half -->
         <div class="col-md-6 d-none d-md-flex bg-image"></div>
 
 
         <!-- The content half -->
-        <div class="col-md-6 bg-light">
-            <div class="login d-flex align-items-center py-5">
+        <div class="col-md-6 bg-light ">
+            <div class="login d-flex align-items-center py-5 ">
 
                 <!-- Demo content-->
-                <div class="container">
-                    <div class="row">
+                <div class="container ">
+                    <div class="row ">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-                            <h3 class="display-7">Sign in to your account!</h3>
-                            <p class="text-muted mb-4">Create a login split page using Bootstrap 4.</p>
+                            <h3 class="display-7 my-5">Sign in to your account!</h3>
+                            
                             <Form @submit="handleLogin" :validation-schema="schema">
                                 <div class="form-group mb-3">
-                                    <Field name="email" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0  shadow-sm px-4"/>
-                                    <ErrorMessage name="email" class="error-feedback" />
+                                    <Field name="email" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-1  shadow-sm px-4"/>
+                                    <ErrorMessage name="email" class="error-feedback mx-5" style="color:red;" />
                                 </div>
                                 <div class="form-group mb-3">
-                                    <Field name="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"/>
-                                    <ErrorMessage name="password" class="error-feedback" />
+                                    <Field name="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-1 shadow-sm px-4 text-primary"/>
+                                    <ErrorMessage name="password" class="error-feedback mx-5" style="color:red;" />
                                 </div>
                                 <!-- <div class="custom-control custom-checkbox mb-3">
                                     <input id="customCheck1" type="checkbox" checked class="custom-control-input">

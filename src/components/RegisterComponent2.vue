@@ -1,6 +1,6 @@
-<template>
+<template >
 <section class="vh-100" style="background-color: #f5f5f0;">
-  <div class="container h-100 w-100">
+  <div class="container h-100 w-100" >
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">
         <div class="card text-black" style="border-radius: 25px;">
@@ -74,7 +74,7 @@
                         id="maleGender"
                         value="male"
                       />
-                      <label class="form-check-label" for="femaleGender">Female</label>
+                      <label class="form-check-label" for="femaleGender">Male</label>
                     </div>
 
                     <div class="form-check form-check-inline mb-0 me-4">
@@ -85,7 +85,7 @@
                         id="femaleGender"
                         value="female"
                       />
-                      <label class="form-check-label" for="maleGender">Male</label>
+                      <label class="form-check-label" for="maleGender">Female</label>
                     </div>
 
                     <ErrorMessage name="gender" class="error-feedback mx-5" style="color:red;" />
@@ -130,6 +130,8 @@
                       Register
                     </button>
                   </div>
+                  <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+
 
                 </div>
                 </Form>
@@ -198,6 +200,9 @@ export default {
       roles: yup
         .string()
         .required("role is required!"),  
+      gender: yup
+        .string()
+        .required("Gender is required!"),    
     });
     return {
       successful: false,

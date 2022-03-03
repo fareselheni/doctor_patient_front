@@ -1,40 +1,43 @@
 <template>
-  <div class="col-xs-12 mx-auto" style="width: 400px;">
-    <div class="card card-container">
-      
-      <!-- <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      /> -->
-      <Form @submit="handleLogin" :validation-schema="schema">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <Field name="email" type="text" class="form-control" />
-          <ErrorMessage name="email" class="error-feedback" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <Field name="password" type="password" class="form-control" />
-          <ErrorMessage name="password" class="error-feedback" />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span>Login</span>
-          </button>
-        </div>
-        <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">
-            {{ message }}
+  <section class="vh-100 bg-image" style="background-color: #f5f5f0;;">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 20px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Sign in</h2>
+
+              <Form>
+
+                <div class="form-outline mb-4">
+                  <label >Email address</label>
+                  <Field name="email" type="email"  required="" autofocus="" style="background-color: #f5f5f0;" class="form-control form-control-sm rounded-pill border-1 shadow-sm px-4"/>
+                  
+                  <ErrorMessage name="email" class="error-feedback mx-5" style="color:red;" />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <Field name="password" type="password" placeholder="Password" required="" autofocus="" style="background-color: #f5f5f0;" class="form-control form-control-lg rounded-pill border-1 shadow-sm px-4"/>
+                  
+                  <ErrorMessage name="email" class="error-feedback mx-5" style="color:red;" />
+                </div>
+
+
+
+                <div class="d-flex justify-content-center">
+                  <button type="button" class="btn btn-primary btn-block btn-lg text-body rounded-pill border-1 shadow-sm">Register</button>
+                </div>
+
+              </Form>
+
+            </div>
           </div>
         </div>
-      </Form>
+      </div>
     </div>
   </div>
+  </section>
 </template>
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";

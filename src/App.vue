@@ -44,7 +44,7 @@
         </li>
       </div>
     </nav>
-    <div class="container">
+    <div >
       <router-view />
     </div>
   </div>
