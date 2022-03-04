@@ -23,8 +23,8 @@ export const auth = {
       AuthService.logout();
       commit('logout');
     },
-    register({ commit }, user) {
-      return AuthService.register(user).then(
+    registerPatient({ commit }, user) {
+      return AuthService.registerPatient(user).then(
         response => {
           commit('registerSuccess');
           return Promise.resolve(response.data);

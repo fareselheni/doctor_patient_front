@@ -17,14 +17,26 @@ class AuthService {
   logout() {
     localStorage.removeItem('user');
   }
-  register(user) {
-    return axios.post(API_URL + 'signup', {
+  // register(user) {
+  //   return axios.post(API_URL + 'signup', {
+  //     firstname: user.firstname,
+  //     lastname: user.lastname,
+  //     email: user.email,
+  //     password: user.password,
+  //     // roles:["doctor"]
+  //     roles:[user.roles],
+  //     gender:user.gender,
+  //     phone_number:user.phone_number,
+  //     adresse:user.adresse
+
+  //   });
+  // }
+  registerPatient(user) {
+    return axios.post(API_URL + 'signuppatient', {
       firstname: user.firstname,
       lastname: user.lastname,
       email: user.email,
       password: user.password,
-      // roles:["doctor"]
-      roles:[user.roles],
       gender:user.gender,
       phone_number:user.phone_number,
       adresse:user.adresse

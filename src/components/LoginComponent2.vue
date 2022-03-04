@@ -24,10 +24,7 @@
                                     <Field name="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-1 shadow-sm px-4 text-primary"/>
                                     <ErrorMessage name="password" class="error-feedback mx-5" style="color:red;" />
                                 </div>
-                                <!-- <div class="custom-control custom-checkbox mb-3">
-                                    <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                                    <label for="customCheck1" class="custom-control-label">Remember password</label>
-                                </div> -->
+                              
                                 <button type="submit" :disabled="loading" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
                                     <span
                                     v-show="loading"
