@@ -44,7 +44,13 @@
                     </div>
                   </div>
 
-                  
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    
+                    <div class="form-outline flex-fill mb-0">
+                        <Field name="specialité" type="text" placeholder="specialité" required="" autofocus="" style="background-color: #f5f5f0;" class="form-control rounded-pill border-1 shadow-sm px-4"/>                         
+                        <ErrorMessage name="specialité" class="error-feedback mx-5" style="color:red;"/>
+                    </div>
+                  </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     
@@ -133,7 +139,7 @@
  import { Form, Field ,ErrorMessage} from "vee-validate";
 import * as yup from "yup";
 export default {
-  name: "RegisterPatient",
+  name: "RegisterDoctor",
   components: {
     Form,
     Field,
@@ -171,7 +177,10 @@ export default {
         .required("Adresse is required!"),      
       gender: yup
         .string()
-        .required("Gender is required!"),    
+        .required("Gender is required!"),  
+      specialité: yup
+        .string()
+        .required("Adresse is required!"),   
     });
     return {
       successful: false,
@@ -196,7 +205,7 @@ export default {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      this.$store.dispatch("auth/registerPatient", user).then(
+      this.$store.dispatch("auth/registerDoctor", user).then(
         (data) => {
           this.message = data.message;
           this.successful = true;

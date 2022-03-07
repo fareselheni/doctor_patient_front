@@ -133,7 +133,7 @@
  import { Form, Field ,ErrorMessage} from "vee-validate";
 import * as yup from "yup";
 export default {
-  name: "RegisterPatient",
+  name: "RegisterAdmin",
   components: {
     Form,
     Field,
@@ -196,7 +196,7 @@ export default {
       this.message = "";
       this.successful = false;
       this.loading = true;
-      this.$store.dispatch("auth/registerPatient", user).then(
+      this.$store.dispatch("auth/registerAdmin", user).then(
         (data) => {
           this.message = data.message;
           this.successful = true;

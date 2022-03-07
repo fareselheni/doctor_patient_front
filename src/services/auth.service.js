@@ -43,5 +43,31 @@ class AuthService {
 
     });
   }
+  registerDoctor(user) {
+    return axios.post(API_URL + 'signupdoctor', {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password,
+      gender:user.gender,
+      phone_number:user.phone_number,
+      adresse:user.adresse,
+      specialité:user.specialité
+
+    });
+  }
+  registerAdmin(user) {
+    return axios.post(API_URL + 'signupadmin', {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password,
+      gender:user.gender,
+      phone_number:user.phone_number,
+      adresse:user.adresse,
+      specialité:user.specialité
+
+    });
+  }
 }
 export default new AuthService();

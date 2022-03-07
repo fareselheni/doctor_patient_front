@@ -110,8 +110,9 @@ export default {
 }
 
 .bg-image {
-  background-image: url('https://wallpapercave.com/wp/wp7538209.jpg');
+  background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://wallpapercave.com/wp/wp7538209.jpg');
   background-size: cover;
   background-position: center center;
+  
 }
 </style>
