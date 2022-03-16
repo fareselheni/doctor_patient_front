@@ -7,12 +7,18 @@ import Notifications from "../views/Notifications.vue";
 import Profile from "../views/Profile.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
+import AppScheduler from "../views/AppScheduler.vue";
 
 const routes = [
   {
     path: "/",
     name: "/",
     redirect: "/dashboard",
+  },
+  {
+    path: "/AppScheduler",
+    name: "AppScheduler",
+    component: AppScheduler,
   },
   {
     path: "/dashboard",
