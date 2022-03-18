@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
 import { auth } from "./auth.module";
+import { scheduler } from "./scheduler.module";
 
 export default createStore({
   modules: {
     auth,
+    scheduler,
   },
   state: {
     hideConfigButton: false,

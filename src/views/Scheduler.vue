@@ -24,6 +24,29 @@ export default {
         // eslint-disable-next-line no-undef
         scheduler.attachEvent("onEventAdded", (id, ev) => {
           this.$emit("event-updated", id, "inserted", ev);
+          //
+          const newevent = {
+            start_date: ev.start_date,
+            end_date: ev.end_date,
+            text: ev.text,
+            user_id: "1",
+            doctor_id: "1",
+          };
+          this.$store.dispatch("scheduler/newevent", newevent).then(
+            () => {
+              console.log(ev);
+            },
+            (error) => {
+              this.loading = false;
+              this.message =
+                (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+                error.message ||
+                error.toString();
+            }
+          );
+          //
         });
         // eslint-disable-next-line no-undef
         scheduler.attachEvent("onEventChanged", (id, ev) => {

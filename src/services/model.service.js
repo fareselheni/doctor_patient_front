@@ -10,7 +10,7 @@ class ModelService {
     return response.data.allgouvernorats;
   }
   async allspecialites() {
-    const response = await axios.get(API_URL + "allspecialites", {});
+    const response = await axios.get(API_URL + "allspecialite", {});
     return response.data.allspecialites;
   }
 }
