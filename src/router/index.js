@@ -16,7 +16,7 @@ const routes = [
     redirect: "/dashboard",
   },
   {
-    path: "/AppScheduler",
+    path: "/appScheduler",
     name: "AppScheduler",
     component: AppScheduler,
   },

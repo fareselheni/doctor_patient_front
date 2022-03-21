@@ -21,6 +21,7 @@
 
 <script>
 import Scheduler from "./Scheduler.vue";
+import schedulerService from "../services/scheduler.service";
 
 export default {
   name: "appScheduler",
@@ -28,19 +29,19 @@ export default {
   data() {
     return {
       events: [
-        {
-          id: 1,
-          start_date: "2020-01-20 6:00",
-          end_date: "2020-01-20 15:00",
-          text: "Event 1",
-          user_id: this.currentUser,
-        },
-        {
-          id: 2,
-          start_date: "2020-01-23 6:00",
-          end_date: "2020-01-23 20:00",
-          text: "Event 2",
-        },
+        // {
+        //   id: 1,
+        //   start_date: "2020-01-20 6:00",
+        //   end_date: "2020-01-20 15:00",
+        //   text: "Event 1",
+        //   user_id: this.currentUser,
+        // },
+        // {
+        //   id: 2,
+        //   start_date: "2020-01-23 6:00",
+        //   end_date: "2020-01-23 20:00",
+        //   text: "Event 2",
+        // },
       ],
       messages: [],
     };
@@ -50,9 +51,9 @@ export default {
       return this.$store.state.auth.user.firstname;
     },
   },
-  //   mounted() {
-  //     console.log("vvv", this.events);
-  //   },
+  async mounted() {
+    this.events = await schedulerService.allevents;
+  },
   methods: {
     addMessage(message) {
       this.messages.unshift(message);
