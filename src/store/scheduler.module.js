@@ -11,6 +11,12 @@ export const scheduler = {
     allevents() {
       return SchedulerService.allevents();
     },
+    // updateevent(event) {
+    //   return SchedulerService.updateevent(event);
+    // },
+    deleteevent(event) {
+      SchedulerService.deleteevent(event);
+    },
   },
   //   mutations: {
   //     loginSuccess(state, user) {

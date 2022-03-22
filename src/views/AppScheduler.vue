@@ -4,6 +4,7 @@
       class="left-container"
       :events="events"
       @event-updated="logEventUpdate"
+      v-if="rend"
     ></scheduler>
     <div class="right-container">
       <ul class="scheduler-messages">
@@ -28,6 +29,7 @@ export default {
   components: { Scheduler },
   data() {
     return {
+      rend: false,
       events: [
         // {
         //   id: 1,
@@ -35,12 +37,15 @@ export default {
         //   end_date: "2020-01-20 15:00",
         //   text: "Event 1",
         //   user_id: this.currentUser,
+        //   doctor_id: "1",
         // },
         // {
         //   id: 2,
         //   start_date: "2020-01-23 6:00",
         //   end_date: "2020-01-23 20:00",
         //   text: "Event 2",
+        //   user_id: this.currentUser,
+        //   doctor_id: "1",
         // },
       ],
       messages: [],
@@ -51,8 +56,14 @@ export default {
       return this.$store.state.auth.user.firstname;
     },
   },
+  // async beforeCreate() {
+  //   this.events = await schedulerService.allevents();
+  //   console.log("evvvvvvvvvvvvvvv", this.events);
+  // },
   async mounted() {
-    this.events = await schedulerService.allevents;
+    this.events = await schedulerService.allevents();
+    this.rend = true;
+    // console.log("evvvvvvvvvvvvvvv", this.events);
   },
   methods: {
     addMessage(message) {

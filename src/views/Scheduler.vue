@@ -5,6 +5,7 @@
 
 <script>
 import "dhtmlx-scheduler";
+
 export default {
   name: "scheduler",
   props: {
@@ -12,7 +13,7 @@ export default {
       type: Array,
       default() {
         // eslint-disable-next-line vue/require-valid-default-prop
-        return { events: [] };
+        return { events: [], evs: [] };
       },
     },
   },
@@ -51,10 +52,20 @@ export default {
         // eslint-disable-next-line no-undef
         scheduler.attachEvent("onEventChanged", (id, ev) => {
           this.$emit("event-updated", id, "updated", ev);
+          // const event = {
+          //   _id: ev._id,
+          //   start_date: ev.start_date,
+          //   end_date: ev.end_date,
+          //   text: ev.text,
+          // };
+          // // console.log(event);
+          // this.$store.dispatch("scheduler/updateevent", event);
         });
         // eslint-disable-next-line no-undef
-        scheduler.attachEvent("onEventDeleted", (id) => {
+        scheduler.attachEvent("onEventDeleted", (id, ev) => {
           this.$emit("event-updated", id, "deleted");
+          console.log("del", ev);
+          this.$store.dispatch("scheduler/deleteevent", ev);
         });
 
         // eslint-disable-next-line no-undef
@@ -83,6 +94,7 @@ export default {
     scheduler.init(this.$refs.scheduler, new Date(2020, 0, 20), "week");
     // eslint-disable-next-line no-undef
     scheduler.parse(this.$props.events);
+    // console.log("evvvvvv", this.$props.events);
   },
 };
 </script>
