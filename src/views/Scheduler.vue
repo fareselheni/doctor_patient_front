@@ -5,7 +5,7 @@
 
 <script>
 import "dhtmlx-scheduler";
-
+import axios from "axios";
 export default {
   name: "scheduler",
   props: {
@@ -64,8 +64,15 @@ export default {
         // eslint-disable-next-line no-undef
         scheduler.attachEvent("onEventDeleted", (id, ev) => {
           this.$emit("event-updated", id, "deleted");
-          console.log("del", ev);
-          this.$store.dispatch("scheduler/deleteevent", ev);
+          //console.log("etet", JSON.parse(JSON.stringify(ev._id)));
+          const idd = JSON.parse(JSON.stringify(ev._id));
+          // this.$store.dispatch("scheduler/deleteevent", obj);
+          console.log("idd", idd);
+          axios
+            .delete(`http://localhost:3000/api/scheduler/deleteevent/${idd}`)
+            .then((response) => {
+              console.log(response);
+            });
         });
 
         // eslint-disable-next-line no-undef

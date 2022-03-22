@@ -25,6 +25,7 @@ class SchedulerService {
   }
   async deleteevent(ev) {
     // return axios.delete(API_URL + "deleteevent", {});
+    console.log("from service", ev);
     return axios
       .delete(API_URL + "deleteevent", {
         _id: ev._id,

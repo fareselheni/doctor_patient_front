@@ -1,5 +1,4 @@
 import SchedulerService from "../services/scheduler.service";
-
 export const scheduler = {
   namespaced: true,
   //   state: initialState,
@@ -14,8 +13,9 @@ export const scheduler = {
     // updateevent(event) {
     //   return SchedulerService.updateevent(event);
     // },
-    deleteevent(event) {
-      SchedulerService.deleteevent(event);
+    deleteevent(z) {
+      SchedulerService.deleteevent(z);
+      console.log("from vuex", z);
     },
   },
   //   mutations: {
