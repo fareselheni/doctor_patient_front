@@ -8,6 +8,7 @@ import Profile from "../views/Profile.vue";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import AppScheduler from "../views/AppScheduler.vue";
+import PatientBoard from "../views/patientboard.vue";
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: "/appScheduler",
     name: "AppScheduler",
     component: AppScheduler,
+  },
+  {
+    path: "/patientboard",
+    name: "PatientBoard",
+    component: PatientBoard,
   },
   {
     path: "/dashboard",
