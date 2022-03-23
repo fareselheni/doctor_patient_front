@@ -52,6 +52,25 @@ export default {
         // eslint-disable-next-line no-undef
         scheduler.attachEvent("onEventChanged", (id, ev) => {
           this.$emit("event-updated", id, "updated", ev);
+          const idd = JSON.parse(JSON.stringify(ev._id));
+          const text = JSON.parse(JSON.stringify(ev.text));
+          const start_date = JSON.parse(JSON.stringify(ev.start_date));
+          const end_date = JSON.parse(JSON.stringify(ev.end_date));
+          console.log("idd", idd);
+          const event = {
+            _id: idd,
+            start_date: start_date,
+            end_date: end_date,
+            text: text,
+          };
+          axios
+            .put(
+              `http://localhost:3000/api/scheduler/updateevent/${idd}`,
+              event
+            )
+            .then((response) => {
+              console.log(response);
+            });
           // const event = {
           //   _id: ev._id,
           //   start_date: ev.start_date,
