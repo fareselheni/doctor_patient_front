@@ -10,17 +10,19 @@
             <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
               <div>
                 <Field
-                  name="gouvernorat"
+                  style="background-color: white"
+                  name="specialite"
                   as="select"
                   class="form-select text-center"
+                  v-model="specialite"
                 >
-                  <option value="" disabled>gouvernorat</option>
+                  <option value="" disabled selected>Specialites</option>
                   <option
-                    v-for="gouv in doctors"
-                    :key="gouv._id"
-                    :value="gouv.firstname"
+                    v-for="spec in allspecialites"
+                    :key="spec._id"
+                    :value="spec.name"
                   >
-                    {{ gouv.firstname }}
+                    {{ spec.name }}
                   </option>
                 </Field>
               </div>
@@ -28,19 +30,37 @@
             <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
               <div>
                 <Field
+                  style="background-color: white"
                   name="gouvernorat"
                   as="select"
                   class="form-select text-center"
+                  v-model="gouvernorat"
                 >
-                  <option value="" disabled>gouvernorat</option>
+                  <option value="" disabled selected>gouvernorat</option>
                   <option
-                    v-for="gouv in doctors"
+                    v-for="gouv in allgouvernorats"
                     :key="gouv._id"
-                    :value="gouv.firstname"
+                    :value="gouv.name"
                   >
-                    {{ gouv.firstname }}
+                    {{ gouv.name }}
                   </option>
                 </Field>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
+              <div class="text-center">
+                <button
+                  :disabled="loading"
+                  type="submit"
+                  class="btn btn-outline-success w-100"
+                  fullWidth
+                >
+                  <span
+                    v-show="loading"
+                    class="spinner-border spinner-border-sm"
+                  ></span>
+                  SEARCH
+                </button>
               </div>
             </div>
           </div>
@@ -53,7 +73,7 @@
       <div class="col-lg-12 position-relative z-index-2">
         <div class="row">
           <div
-            v-for="doc in doctors"
+            v-for="doc in filtreddoctors"
             :key="doc._id"
             class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4"
           >
@@ -74,6 +94,7 @@
 </template>
 
 <script>
+import ModelService from "../services/model.service";
 import MiniCards from "./components/DoctorMiniCards.vue";
 import SearchDoctor from "../services/searchdoctor.service";
 import VmdInput from "@/components/VmdInput.vue";
@@ -89,11 +110,26 @@ export default {
   data() {
     return {
       rend: false,
-      doctors: [],
+      filtreddoctors: [],
+      allspecialites: [],
+      allgouvernorats: [],
+      gouvernorat: "",
+      specialite: "",
     };
   },
+  methods: {
+    async handleRegister() {
+      const filtre = {
+        specialite: this.specialite,
+        gouvernorat: this.gouvernorat,
+      };
+      this.filtreddoctors = await SearchDoctor.filtreDoctors(filtre);
+    },
+  },
   async mounted() {
-    this.doctors = await SearchDoctor.alldoctors();
+    this.allgouvernorats = await ModelService.allgouvernorats();
+    this.allspecialites = await ModelService.allspecialites();
+    this.filtreddoctors = await SearchDoctor.filtreDoctors();
     console.log("doccccccccc", this.doctors);
   },
 };

@@ -5,6 +5,15 @@ class SearchDoctorService {
     const response = await axios.get(API_URL + "all", {});
     return response.data.alldoctors;
   }
+  async filtreDoctors(filtre) {
+    const response = await axios.get(API_URL + "filtre", {
+      params: {
+        specialite: filtre.specialite,
+        gouvernorat: filtre.gouvernorat,
+      },
+    });
+    return response.data.alldoctors;
+  }
   async deleteevent(ev) {
     // return axios.delete(API_URL + "deleteevent", {});
     console.log("from service", ev);
