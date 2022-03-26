@@ -1,5 +1,9 @@
 <template>
-  <div class="card mb-2" :class="directionReverse ? reverseDirection : ''">
+  <div
+    style="height: 180px"
+    class="card mb-2"
+    :class="directionReverse ? reverseDirection : ''"
+  >
     <div class="card-header p-3 pt-2">
       <div
         class="icon icon-lg icon-shape shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute"

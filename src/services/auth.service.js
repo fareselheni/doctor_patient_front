@@ -31,6 +31,7 @@ class AuthService {
       specialite: user.specialite,
       gouvernorat: user.gouvernorat,
       numero_inscription_cnom: user.numero_inscription_cnom,
+      image: user.image,
     });
   }
 }

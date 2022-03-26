@@ -14,16 +14,5 @@ class SearchDoctorService {
     });
     return response.data.alldoctors;
   }
-  async deleteevent(ev) {
-    // return axios.delete(API_URL + "deleteevent", {});
-    console.log("from service", ev);
-    return axios
-      .delete(API_URL + "deleteevent", {
-        _id: ev._id,
-      })
-      .then((response) => {
-        console.log(response);
-      });
-  }
 }
 export default new SearchDoctorService();

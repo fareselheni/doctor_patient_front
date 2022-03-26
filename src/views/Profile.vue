@@ -13,7 +13,7 @@
         <div class="col-auto">
           <div class="avatar avatar-xl position-relative">
             <img
-              src="@/assets/img/bruce-mars.jpg"
+              :src="currentUser.image"
               alt="profile_image"
               class="shadow-sm w-100 border-radius-lg"
             />
@@ -861,6 +861,7 @@ export default {
     this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();
+    console.log("usr", this.$store.state.auth.user.image);
   },
   beforeUnmount() {
     this.$store.state.isAbsolute = false;

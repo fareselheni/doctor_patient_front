@@ -130,6 +130,20 @@
                         />
                       </div>
                       <div class="mb-3">
+                        <div class="container mt-3">
+                          <div class="card bg-white">
+                            <img style="" :src="image" alt="" />
+                            <Field
+                              name="image"
+                              @change="handleFileUpload"
+                              class="custom-input"
+                              type="file"
+                              accept="image/*"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
                         <div
                           class="d-md-flex justify-content-start align-items-center mb-0 py-2 px-4"
                         >
@@ -356,6 +370,7 @@ export default {
       specialite: yup.string(),
       gouvernorat: yup.string(),
       numero_inscription_cnom: yup.string(),
+      // image: yup.string(),
     });
     return {
       successful: false,
@@ -365,6 +380,7 @@ export default {
       selectedrole: "",
       allspecialites: [],
       allgouvernorats: [],
+      image: "",
     };
   },
   watch: {
@@ -391,10 +407,26 @@ export default {
   },
   methods: {
     handleRegister(user) {
+      const userr = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password,
+        roles: user.roles,
+        gender: user.gender,
+        phone_number: user.phone_number,
+        adresse: user.adresse,
+        specialite: user.specialite,
+        gouvernorat: user.gouvernorat,
+        numero_inscription_cnom: user.numero_inscription_cnom,
+        image: this.image,
+      };
       this.message = "";
       this.successful = false;
       this.loading = true;
-      this.$store.dispatch("auth/register", user).then(
+      // user.image == "this.schema.image";
+      console.log("user", userr);
+      this.$store.dispatch("auth/register", userr).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
@@ -412,6 +444,26 @@ export default {
           this.loading = false;
         }
       );
+    },
+    convertToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+    },
+    //ajouter une image
+    async handleFileUpload(e) {
+      const file = e.target.files[0];
+      const base64 = await this.convertToBase64(file);
+      // this.schema.image == base64;
+      this.image = base64;
+      // console.log("image", this.schema.image);
     },
   },
   created() {
