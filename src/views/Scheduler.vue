@@ -30,7 +30,7 @@ export default {
             start_date: ev.start_date,
             end_date: ev.end_date,
             text: ev.text,
-            user_id: "1",
+            user_id: this.$store.state.auth.user.id,
             doctor_id: "1",
           };
           this.$store.dispatch("scheduler/newevent", newevent).then(

@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store";
 const API_URL = "http://localhost:3000/api/scheduler/";
 class SchedulerService {
   async addevent(event) {
@@ -20,7 +21,11 @@ class SchedulerService {
   //   });
   // }
   async allevents() {
-    const response = await axios.get(API_URL + "getall", {});
+    const response = await axios.get(API_URL + "getall", {
+      params: {
+        _id: store.state.auth.user.id,
+      },
+    });
     return response.data.allevents;
   }
   async deleteevent(ev) {

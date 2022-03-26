@@ -861,7 +861,6 @@ export default {
     this.$store.state.isAbsolute = true;
     setNavPills();
     setTooltip();
-    console.log("usr", this.$store.state.auth.user.image);
   },
   beforeUnmount() {
     this.$store.state.isAbsolute = false;
