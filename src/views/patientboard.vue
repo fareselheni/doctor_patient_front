@@ -90,6 +90,18 @@
               :detail="`${doc.specialite}`"
               iconClass="text-white"
               iconBackground="bg-gradient-primary"
+              v-if="doc.image"
+              :pdp="`${doc.image}`"
+            />
+            <mini-cards
+              v-else
+              :title="`${doc.gouvernorat}`"
+              :value="`${doc.firstname + ' ' + doc.lastname}`"
+              percentage="+3%"
+              iconName="person"
+              :detail="`${doc.specialite}`"
+              iconClass="text-white"
+              iconBackground="bg-gradient-primary"
             />
           </div>
         </div>

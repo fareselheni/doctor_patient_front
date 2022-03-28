@@ -9,7 +9,14 @@
         class="icon icon-lg icon-shape shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute"
         :class="iconBackground"
       >
+        <img
+          v-if="pdp"
+          :src="pdp"
+          alt="profile_image"
+          class="shadow-sm w-100 h-100 border-radius-lg"
+        />
         <i
+          v-if="!pdp"
           class="material-icons opacity-10"
           :class="iconClass"
           aria-hidden="true"
@@ -72,6 +79,9 @@ export default {
     iconBackground: {
       type: String,
       default: "bg-white",
+    },
+    pdp: {
+      type: String,
     },
   },
 };
