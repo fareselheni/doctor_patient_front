@@ -10,6 +10,8 @@ class SearchDoctorService {
       params: {
         specialite: filtre.specialite,
         gouvernorat: filtre.gouvernorat,
+        firstname: filtre.firstname,
+        lastname: filtre.lastname,
       },
     });
     return response.data.alldoctors;

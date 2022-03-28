@@ -5,7 +5,12 @@
         <Form role="form" @submit="handleRegister">
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
-              <vmd-input style="background-color: white" label="Search here" />
+              <input
+                class="form-control text-center border border-sm"
+                v-model="search"
+                style="background-color: white"
+                placeholder="Search here"
+              />
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
               <div>
@@ -79,7 +84,7 @@
           >
             <mini-cards
               :title="`${doc.gouvernorat}`"
-              :value="`${doc.firstname}`"
+              :value="`${doc.firstname + ' ' + doc.lastname}`"
               percentage="+3%"
               iconName="person"
               :detail="`${doc.specialite}`"
@@ -97,13 +102,13 @@
 import ModelService from "../services/model.service";
 import MiniCards from "./components/DoctorMiniCards.vue";
 import SearchDoctor from "../services/searchdoctor.service";
-import VmdInput from "@/components/VmdInput.vue";
+// import VmdInput from "@/components/VmdInput.vue";
 import { Form, Field } from "vee-validate";
 export default {
   name: "patientboard",
   components: {
     MiniCards,
-    VmdInput,
+    // VmdInput,
     Form,
     Field,
   },
@@ -115,13 +120,17 @@ export default {
       allgouvernorats: [],
       gouvernorat: "",
       specialite: "",
+      search: "",
     };
   },
   methods: {
     async handleRegister() {
+      const searchSplited = this.search.split(/[ ,]+/);
       const filtre = {
         specialite: this.specialite,
         gouvernorat: this.gouvernorat,
+        firstname: searchSplited[0],
+        lastname: searchSplited[1],
       };
       this.filtreddoctors = await SearchDoctor.filtreDoctors(filtre);
     },
@@ -130,9 +139,13 @@ export default {
     this.allgouvernorats = await ModelService.allgouvernorats();
     this.allspecialites = await ModelService.allspecialites();
     this.filtreddoctors = await SearchDoctor.filtreDoctors();
-    console.log("doccccccccc", this.doctors);
   },
 };
 </script>
 
-<style></style>
+<style>
+.form-control:focus {
+  border-color: #ff0000;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+</style>
