@@ -41,6 +41,9 @@
           percentage
         }}</span>
         {{ detail }}
+        <button type="button" class="btn btn-outline-success mt-2" fullWidth>
+          prendre RDV
+        </button>
       </p>
     </div>
   </div>

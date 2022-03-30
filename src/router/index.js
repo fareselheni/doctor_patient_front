@@ -5,11 +5,11 @@ import Billing from "../views/Billing.vue";
 import RTL from "../views/Rtl.vue";
 import Notifications from "../views/Notifications.vue";
 import Profile from "../views/Profile.vue";
-import SignIn from "../views/SignIn.vue";
-import SignUp from "../views/SignUp.vue";
-import AppScheduler from "../views/AppScheduler.vue";
-import PatientBoard from "../views/patientboard.vue";
-import Dispotime from "../views/dispotime.vue";
+import SignIn from "../views/auth/SignIn.vue";
+import SignUp from "../views/auth/SignUp.vue";
+import AppScheduler from "../views/doctor/AppScheduler.vue";
+import PatientBoard from "../views/patient/patientboard.vue";
+import Dispotime from "../views/doctor/dispotime.vue";
 
 const routes = [
   {
