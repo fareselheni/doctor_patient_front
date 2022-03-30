@@ -6,6 +6,7 @@
 <script>
 import "dhtmlx-scheduler";
 import axios from "axios";
+
 export default {
   name: "scheduler",
   props: {
@@ -19,6 +20,13 @@ export default {
   },
 
   methods: {
+    // test: async function () {
+    //   const newevent = {
+    //     start_date: "2020-01-20 6:00",
+    //     end_date: "2020-01-20 15:00",
+    //   };
+    //   console.log("teeeee", scheduler.checkCollision(newevent));
+    // },
     $_initSchedulerEvents: function () {
       // eslint-disable-next-line no-undef
       if (!scheduler.$_eventsInitialized) {
@@ -31,7 +39,7 @@ export default {
             end_date: ev.end_date,
             text: ev.text,
             user_id: this.$store.state.auth.user.id,
-            doctor_id: "1",
+            doctor_id: this.$store.state.auth.user.id,
           };
           this.$store.dispatch("scheduler/newevent", newevent).then(
             () => {
@@ -71,14 +79,6 @@ export default {
             .then((response) => {
               console.log(response);
             });
-          // const event = {
-          //   _id: ev._id,
-          //   start_date: ev.start_date,
-          //   end_date: ev.end_date,
-          //   text: ev.text,
-          // };
-          // // console.log(event);
-          // this.$store.dispatch("scheduler/updateevent", event);
         });
         // eslint-disable-next-line no-undef
         scheduler.attachEvent("onEventDeleted", (id, ev) => {
@@ -101,6 +101,7 @@ export default {
   },
 
   mounted: function () {
+    // this.test();
     // eslint-disable-next-line no-undef
     scheduler.skin = "material";
     // eslint-disable-next-line no-undef

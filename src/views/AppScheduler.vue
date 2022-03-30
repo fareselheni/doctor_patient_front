@@ -56,10 +56,6 @@ export default {
       return this.$store.state.auth.user.firstname;
     },
   },
-  // async beforeCreate() {
-  //   this.events = await schedulerService.allevents();
-  //   console.log("evvvvvvvvvvvvvvv", this.events);
-  // },
   async mounted() {
     this.events = await schedulerService.allevents();
     this.rend = true;

@@ -9,12 +9,18 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import AppScheduler from "../views/AppScheduler.vue";
 import PatientBoard from "../views/patientboard.vue";
+import Dispotime from "../views/dispotime.vue";
 
 const routes = [
   {
     path: "/",
     name: "/",
     redirect: "/dashboard",
+  },
+  {
+    path: "/Dispotime",
+    name: "Dispotime",
+    component: Dispotime,
   },
   {
     path: "/appScheduler",
