@@ -8,8 +8,9 @@ import Profile from "../views/Profile.vue";
 import SignIn from "../views/auth/SignIn.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import AppScheduler from "../views/doctor/AppScheduler.vue";
-import PatientBoard from "../views/patient/patientboard.vue";
 import Dispotime from "../views/doctor/dispotime.vue";
+import PatientBoard from "../views/patient/patientboard.vue";
+import prendrerdv from "../views/patient/prendrerdv.vue";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: "/Dispotime",
     name: "Dispotime",
     component: Dispotime,
+  },
+  {
+    path: "/prendrerdv/:id",
+    name: "prendrerdv",
+    component: prendrerdv,
   },
   {
     path: "/appScheduler",

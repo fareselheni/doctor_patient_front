@@ -41,10 +41,21 @@
           percentage
         }}</span>
         {{ detail }}
-        <button type="button" class="btn btn-outline-success mt-2" fullWidth>
-          prendre RDV
-        </button>
       </p>
+      <div>
+        <router-link
+          :to="{ name: 'prendrerdv', params: { id: doctor_id } }"
+          tag="button"
+          class="btn btn-outline-success mt-2"
+          fullWidth
+          >foo</router-link
+        >
+      </div>
+      <!-- <button
+        @click="$router.push({ name: 'prendrerdv', params: { id: doctor_id } })"
+      >
+        Click to Navigate
+      </button> -->
     </div>
   </div>
 </template>
@@ -85,6 +96,10 @@ export default {
     },
     pdp: {
       type: String,
+    },
+    doctor_id: {
+      type: String,
+      required: true,
     },
   },
 };

@@ -152,17 +152,19 @@
       </div>
       <div v-if="showPatientBoard">
         <li class="nav-item">
-          <sidenav-collapse
-            url="#"
-            :aria-controls="''"
-            v-bind:collapse="false"
-            collapseRef="patientboard"
-            navText="patientboard"
-          >
-            <template v-slot:icon>
-              <i class="material-icons-round opacity-10 fs-5">dashboard</i>
-            </template>
-          </sidenav-collapse>
+          <router-link to="/patientboard">
+            <sidenav-collapse
+              url="#"
+              :aria-controls="''"
+              v-bind:collapse="false"
+              collapseRef="patientboard"
+              navText="patientboard"
+            >
+              <template v-slot:icon>
+                <i class="material-icons-round opacity-10 fs-5">dashboard</i>
+              </template>
+            </sidenav-collapse>
+          </router-link>
         </li>
       </div>
       <div v-if="currentUser">
@@ -175,17 +177,19 @@
           </h6>
         </li>
         <li class="nav-item">
-          <sidenav-collapse
-            url="#"
-            :aria-controls="''"
-            v-bind:collapse="false"
-            collapseRef="profile"
-            navText="Profile"
-          >
-            <template v-slot:icon>
-              <i class="material-icons-round opacity-10 fs-5">person</i>
-            </template>
-          </sidenav-collapse>
+          <router-link to="/profile">
+            <sidenav-collapse
+              url="#"
+              :aria-controls="''"
+              v-bind:collapse="false"
+              collapseRef="profile"
+              navText="Profile"
+            >
+              <template v-slot:icon>
+                <i class="material-icons-round opacity-10 fs-5">person</i>
+              </template>
+            </sidenav-collapse>
+          </router-link>
         </li>
         <li class="nav-item">
           <sidenav-collapse
