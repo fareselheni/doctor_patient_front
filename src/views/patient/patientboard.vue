@@ -90,6 +90,7 @@
               :detail="`${doc.specialite}`"
               iconClass="text-white"
               iconBackground="bg-gradient-primary"
+              :doctor_id="`${doc._id}`"
               v-if="doc.image"
               :pdp="`${doc.image}`"
             />

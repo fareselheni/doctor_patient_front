@@ -48,7 +48,7 @@
           tag="button"
           class="btn btn-outline-success mt-2"
           fullWidth
-          >foo</router-link
+          >Prendre RDV</router-link
         >
       </div>
       <!-- <button

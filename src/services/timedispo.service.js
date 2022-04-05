@@ -18,8 +18,6 @@ class TimedispoService {
     return response.data.allevents;
   }
   async deleteevent(ev) {
-    // return axios.delete(API_URL + "deleteevent", {});
-    console.log("from service", ev);
     return axios
       .delete(API_URL + "deleteevent", {
         _id: ev._id,
@@ -27,6 +25,14 @@ class TimedispoService {
       .then((response) => {
         console.log(response);
       });
+  }
+  async getDoctorTimeDispo(ev) {
+    const response = await axios.get(
+      API_URL + "timedispo/doctor/" + ev._id + "/" + ev.start_date,
+      {}
+    );
+    console.log(response.data.tdispo);
+    return response.data.tdispo;
   }
 }
 export default new TimedispoService();
