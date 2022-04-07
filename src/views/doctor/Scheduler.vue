@@ -118,7 +118,7 @@ export default {
     this.$_initSchedulerEvents();
 
     // eslint-disable-next-line no-undef
-    scheduler.init(this.$refs.scheduler, new Date(2020, 0, 20), "week");
+    scheduler.init(this.$refs.scheduler, new Date(), "week");
     // eslint-disable-next-line no-undef
     scheduler.parse(this.$props.events);
     // console.log("evvvvvv", this.$props.events);

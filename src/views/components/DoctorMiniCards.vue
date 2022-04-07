@@ -1,7 +1,6 @@
 <template>
   <div
-    style="height: 180px"
-    class="card mb-2"
+    class="card mb-2 h-100"
     :class="directionReverse ? reverseDirection : ''"
   >
     <div class="card-header p-3 pt-2">
