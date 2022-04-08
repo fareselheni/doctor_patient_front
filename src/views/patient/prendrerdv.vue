@@ -3,25 +3,25 @@
     <div class="row mb-4">
       <div class="col-lg-12 position-relative z-index-2">
         <div class="row">
-          <Form role="form" @submit="handleRegister">
-            <div class="d-flex flex-row bd-highlight mb-3">
-              <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
-                <v-date-picker v-model="date" :input-debounce="500">
-                  <template v-slot="{ inputValue, inputEvents }">
-                    <input
-                      class="bg-white border px-2 py-1 rounded"
-                      :value="inputValue"
-                      v-on="inputEvents"
-                    />
-                  </template>
-                </v-date-picker>
-              </div>
+          <div class="d-flex flex-row bd-highlight mb-3">
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
+              <v-date-picker v-model="date" :input-debounce="500">
+                <template v-slot="{ inputValue, inputEvents }">
+                  <input
+                    class="bg-white border px-2 py-1 rounded"
+                    :value="inputValue"
+                    v-on="inputEvents"
+                    v-on:submit="handleRegister"
+                  />
+                </template>
+              </v-date-picker>
+            </div>
 
-              <!-- <v-date-picker
+            <!-- <v-date-picker
               class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4"
               v-model="date"
             /> -->
-              <div class="col-lg-2 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
+            <!-- <div class="col-lg-2 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
                 <div class="text-center">
                   <button
                     :disabled="loading"
@@ -36,9 +36,8 @@
                     Add
                   </button>
                 </div>
-              </div>
-            </div>
-          </Form>
+              </div> -->
+          </div>
         </div>
         <div class="col-lg-12">
           <h3 class="p-3 text-left">
@@ -70,12 +69,8 @@
 
 <script>
 import timedispoService from "../../services/timedispo.service";
-import { Form } from "vee-validate";
 export default {
   name: "prendrerdv",
-  components: {
-    Form,
-  },
   data() {
     return {
       date: "",
@@ -84,6 +79,16 @@ export default {
   },
   async mounted() {
     console.log(this.$route.params.id);
+  },
+  computed: {
+    changedDate() {
+      return this.date;
+    },
+  },
+  watch: {
+    changedDate() {
+      this.handleRegister();
+    },
   },
   methods: {
     async handleRegister() {
