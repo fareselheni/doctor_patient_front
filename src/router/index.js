@@ -11,12 +11,24 @@ import AppScheduler from "../views/doctor/AppScheduler.vue";
 import Dispotime from "../views/doctor/dispotime.vue";
 import PatientBoard from "../views/patient/patientboard.vue";
 import prendrerdv from "../views/patient/prendrerdv.vue";
+import mesRendezVous from "../views/patient/mesRendezVous.vue";
+import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 
 const routes = [
   {
     path: "/",
     name: "/",
     redirect: "/dashboard",
+  },
+  {
+    path: "/toConfirmRendezVous",
+    name: "toConfirmRendezVous",
+    component: toConfirmRendezVous,
+  },
+  {
+    path: "/mesRendezVous",
+    name: "mesRendezVous",
+    component: mesRendezVous,
   },
   {
     path: "/Dispotime",

@@ -41,14 +41,14 @@
         </div>
         <div class="col-lg-12">
           <h3 class="p-3 text-left">
-            Vue.js - Display a list of items with v-for
+            Veuillez choisir une date qui vous convient
           </h3>
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -57,7 +57,22 @@
                   {{ dt.start_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}
                 </td>
                 <td>{{ dt.end_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}</td>
-                <td>test</td>
+                <td>
+                  <div class="col-lg-8 col-md-4 col-sm-4 text-center">
+                    <button
+                      :disabled="loading"
+                      type="submit"
+                      class="btn btn-outline-success w-50"
+                      @click="addPre_app(dt)"
+                    >
+                      <span
+                        v-show="loading"
+                        class="spinner-border spinner-border-sm"
+                      ></span>
+                      Reserver
+                    </button>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -68,12 +83,13 @@
 </template>
 
 <script>
+import axios from "axios";
 import timedispoService from "../../services/timedispo.service";
 export default {
   name: "prendrerdv",
   data() {
     return {
-      date: "",
+      date: Date.now(),
       doctimedispo: [],
     };
   },
@@ -98,6 +114,17 @@ export default {
       };
       this.doctimedispo = await timedispoService.getDoctorTimeDispo(ev);
       console.log("datetime", await timedispoService.getDoctorTimeDispo(ev));
+    },
+    async addPre_app(ev) {
+      const name = this.$store.state.auth.user.firstname;
+      console.log("greeting" + name);
+      await axios.post("http://localhost:3000/api/pre_app/new", {
+        text: "meet with " + name,
+        start_date: ev.start_date,
+        end_date: ev.end_date,
+        user_id: this.$store.state.auth.user.id,
+        doctor_id: ev.doctor_id,
+      });
     },
   },
 };

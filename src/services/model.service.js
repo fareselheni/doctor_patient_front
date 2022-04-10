@@ -5,6 +5,10 @@ class ModelService {
     const response = await axios.get(API_URL + "allusers", {});
     return response.data.allusers;
   }
+  getDoctorById(_id) {
+    const response = axios.get(API_URL + "getDoctorById/" + _id, {});
+    return response.data;
+  }
   async allgouvernorats() {
     const response = await axios.get(API_URL + "allgouvernorats", {});
     return response.data.allgouvernorats;
