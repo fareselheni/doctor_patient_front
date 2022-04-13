@@ -47,12 +47,14 @@ export default {
       doctorFullName: "",
     };
   },
-  async mounted() {
+  async beforeMount() {
     if (this.$route.query.id) {
       var _id = this.$route.query.id;
       console.log("trueeeeeeeeeeee");
       await axios.get("http://localhost:3000/verify?id=" + _id, {});
     }
+  },
+  async mounted() {
     this.mesRdvs = await mesRendezVousService.Patientallrdvs();
   },
   methods: {
