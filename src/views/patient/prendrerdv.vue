@@ -115,15 +115,28 @@ export default {
       this.doctimedispo = await timedispoService.getDoctorTimeDispo(ev);
       console.log("datetime", await timedispoService.getDoctorTimeDispo(ev));
     },
+    // async addPre_app(ev) {
+    //   const name = this.$store.state.auth.user.firstname;
+    //   console.log("greeting" + name);
+    //   await axios.post("http://localhost:3000/api/pre_app/new", {
+    //     text: "meet with " + name,
+    //     start_date: ev.start_date,
+    //     end_date: ev.end_date,
+    //     user_id: this.$store.state.auth.user.id,
+    //     doctor_id: ev.doctor_id,
+    //   });
+    // },
+    // eslint-disable-next-line no-unused-vars
     async addPre_app(ev) {
-      const name = this.$store.state.auth.user.firstname;
-      console.log("greeting" + name);
-      await axios.post("http://localhost:3000/api/pre_app/new", {
-        text: "meet with " + name,
-        start_date: ev.start_date,
-        end_date: ev.end_date,
-        user_id: this.$store.state.auth.user.id,
-        doctor_id: ev.doctor_id,
+      const user_email = this.$store.state.auth.user.email;
+      const user_id = this.$store.state.auth.user.id;
+      await axios.get("http://localhost:3000/send", {
+        params: {
+          to: user_email,
+          user_id: user_id,
+          _id: ev._id,
+          event: ev,
+        },
       });
     },
   },

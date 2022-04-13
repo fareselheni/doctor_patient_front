@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import mesRendezVousService from "../../services/mesRendezVous.service";
 import modelService from "../../services/model.service";
 export default {
@@ -47,6 +48,11 @@ export default {
     };
   },
   async mounted() {
+    if (this.$route.query.id) {
+      var _id = this.$route.query.id;
+      console.log("trueeeeeeeeeeee");
+      await axios.get("http://localhost:3000/verify?id=" + _id, {});
+    }
     this.mesRdvs = await mesRendezVousService.Patientallrdvs();
   },
   methods: {
