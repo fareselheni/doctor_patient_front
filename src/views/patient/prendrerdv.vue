@@ -71,6 +71,7 @@
                       ></span>
                       Reserver
                     </button>
+                    <div class="h-25" id="liveAlertPlaceholder"></div>
                   </div>
                 </td>
               </tr>
@@ -83,6 +84,7 @@
 </template>
 
 <script>
+import socket from "../../socket";
 import axios from "axios";
 import timedispoService from "../../services/timedispo.service";
 export default {
@@ -127,7 +129,20 @@ export default {
     //   });
     // },
     // eslint-disable-next-line no-unused-vars
+    alertfunc(message, type) {
+      var alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+      var wrapper = document.createElement("div");
+      wrapper.innerHTML =
+        '<div class="h-50 alert alert-' +
+        type +
+        ' alert-dismissible" role="alert">' +
+        message +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+
+      alertPlaceholder.append(wrapper);
+    },
     async addPre_app(ev) {
+      this.alertfunc("Check you Email!", "success");
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       await axios.get("http://localhost:3000/send", {
@@ -138,6 +153,7 @@ export default {
           event: ev,
         },
       });
+      socket.emit("getDoctorId", ev.doctor_id);
     },
   },
 };

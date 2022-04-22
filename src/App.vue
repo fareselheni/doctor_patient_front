@@ -26,11 +26,13 @@
   </main>
 </template>
 <script>
+import socket from "./socket";
 import Sidenav from "./examples/Sidenav";
 import Configurator from "@/examples/Configurator.vue";
 import Navbar from "@/examples/Navbars/Navbar.vue";
 import AppFooter from "@/examples/Footer.vue";
 import { mapMutations } from "vuex";
+import notificationService from "../src/services/notification.service";
 
 export default {
   name: "App",
@@ -62,6 +64,37 @@ export default {
     if (window.innerWidth > 1200) {
       sidenav.classList.add("g-sidenav-pinned");
     }
+  },
+  created() {
+    const username = "test";
+    // this.usernameAlreadySelected = true;
+    socket.auth = { username };
+    socket.connect();
+    socket.on("connect_error", (err) => {
+      console.log(err);
+    });
+    // socket.emit("getDoctorId", "ev.doctor_id");
+    socket.on("notify", (msg) => {
+      console.log("message: " + msg);
+      console.log("id: " + this.$store.state.auth.user.id);
+      if (msg == this.$store.state.auth.user.id) {
+        console.log("trueeeeeeeeeee");
+        if ("serviceWorker" in navigator) {
+          notificationService.send();
+        }
+      }
+      // if (msg !== this.$store.state.auth.user.id) {
+      //   if ("serviceWorker" in navigator) {
+      //     notificationService.send();
+      //   }
+      // }
+    });
+    //
+    // if ("serviceWorker" in navigator) {
+    //   // eslint-disable-next-line no-console
+    //   // this.send().catch(err => console.error(err));
+    //   notificationService.send();
+    // }
   },
 };
 </script>

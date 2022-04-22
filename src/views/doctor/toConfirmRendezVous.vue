@@ -7,10 +7,11 @@
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>Doctor</th>
+                <th>Patient</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -22,6 +23,10 @@
                 <td>{{ dt.end_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}</td>
                 <td>
                   {{ dt.status }}
+                </td>
+                <td>
+                  <button>Accept</button>
+                  <button>Cancel</button>
                 </td>
               </tr>
             </tbody>
