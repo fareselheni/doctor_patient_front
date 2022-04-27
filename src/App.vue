@@ -15,7 +15,7 @@
       v-if="this.$store.state.showNavbar"
     />
     <router-view />
-    <app-footer v-show="this.$store.state.showFooter" />
+    <app-footer class="mt-10" v-show="this.$store.state.showFooter" />
     <configurator
       :toggle="toggleConfigurator"
       :class="[
@@ -78,23 +78,11 @@ export default {
       console.log("message: " + msg);
       console.log("id: " + this.$store.state.auth.user.id);
       if (msg == this.$store.state.auth.user.id) {
-        console.log("trueeeeeeeeeee");
         if ("serviceWorker" in navigator) {
           notificationService.send();
         }
       }
-      // if (msg !== this.$store.state.auth.user.id) {
-      //   if ("serviceWorker" in navigator) {
-      //     notificationService.send();
-      //   }
-      // }
     });
-    //
-    // if ("serviceWorker" in navigator) {
-    //   // eslint-disable-next-line no-console
-    //   // this.send().catch(err => console.error(err));
-    //   notificationService.send();
-    // }
   },
 };
 </script>

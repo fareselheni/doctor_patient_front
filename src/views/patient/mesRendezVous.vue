@@ -7,10 +7,10 @@
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>Doctor</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Status</th>
+                <th>DOCTEUR</th>
+                <th>HEURE DE DEBUT</th>
+                <th>HEURE DE FIN</th>
+                <th>STATUS</th>
               </tr>
             </thead>
             <tbody>

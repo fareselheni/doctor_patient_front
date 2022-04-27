@@ -17,11 +17,17 @@ class TimedispoService {
     });
     return response.data.allevents;
   }
+  async doctorallTimeDispoevents() {
+    const response = await axios.get(API_URL + "timedispo/doctor/all", {
+      params: {
+        _id: store.state.auth.user.id,
+      },
+    });
+    return response.data.tdispo;
+  }
   async deleteevent(ev) {
     return axios
-      .delete(API_URL + "deleteevent", {
-        _id: ev._id,
-      })
+      .delete(API_URL + "deletetimedispo/" + ev._id)
       .then((response) => {
         console.log(response);
       });
