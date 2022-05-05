@@ -129,7 +129,7 @@
             :aria-controls="''"
             v-bind:collapse="false"
             collapseRef="appScheduler"
-            navText="Scheduler"
+            navText="Calendrier"
           >
             <template v-slot:icon>
               <i class="material-icons-round opacity-10 fs-5">dashboard</i>
@@ -155,7 +155,7 @@
             :aria-controls="''"
             v-bind:collapse="false"
             collapseRef="toConfirmRendezVous"
-            navText="toConfirmRendezVous"
+            navText="Rendez-vous à confirmer"
           >
             <template v-slot:icon>
               <i class="material-icons-round opacity-10 fs-5">dashboard</i>
@@ -171,7 +171,7 @@
               :aria-controls="''"
               v-bind:collapse="false"
               collapseRef="patientboard"
-              navText="patientboard"
+              navText="Rechercher un docteur"
             >
               <template v-slot:icon>
                 <i class="material-icons-round opacity-10 fs-5">dashboard</i>
@@ -186,7 +186,7 @@
               :aria-controls="''"
               v-bind:collapse="false"
               collapseRef="mesRendezVous"
-              navText="mesRendezVous"
+              navText="Rendez-vous non confirmé"
             >
               <template v-slot:icon>
                 <i class="material-icons-round opacity-10 fs-5">dashboard</i>
@@ -203,7 +203,7 @@
               :aria-controls="''"
               v-bind:collapse="false"
               collapseRef="HomeVideo"
-              navText="visioconférence"
+              navText="Visioconférence"
             >
               <template v-slot:icon>
                 <i class="material-icons-round opacity-10 fs-5">dashboard</i>

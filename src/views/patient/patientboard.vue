@@ -9,7 +9,7 @@
                 class="form-control text-center border border-sm"
                 v-model="search"
                 style="background-color: white"
-                placeholder="Search here"
+                placeholder="Recherche par nom"
               />
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
@@ -64,7 +64,7 @@
                     v-show="loading"
                     class="spinner-border spinner-border-sm"
                   ></span>
-                  SEARCH
+                  RECHERCHER
                 </button>
               </div>
             </div>

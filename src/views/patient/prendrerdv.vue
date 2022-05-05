@@ -63,7 +63,7 @@
                       :disabled="loading"
                       type="submit"
                       class="btn btn-outline-success w-50"
-                      @click="addPre_app(dt)"
+                      @click="addPre_app(dt), (snackbar = 'success')"
                     >
                       <span
                         v-show="loading"
@@ -71,12 +71,24 @@
                       ></span>
                       Reserver
                     </button>
-                    <div class="h-25" id="liveAlertPlaceholder"></div>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="position-fixed top-1 end-1 z-index-2">
+          <vmd-snackbar
+            v-if="snackbar === 'success'"
+            title="Notification"
+            date="1 min ago"
+            description="veuillez confirmer votre rendez-vous par email."
+            icon="done"
+            color="white"
+            iconColor="success"
+            :closeHandler="closeSnackbar"
+            iconName="close"
+          />
         </div>
       </div>
     </div>
@@ -84,15 +96,20 @@
 </template>
 
 <script>
+import VmdSnackbar from "@/components/VmdSnackbar.vue";
 import socket from "../../socket";
 import axios from "axios";
 import timedispoService from "../../services/timedispo.service";
 export default {
   name: "prendrerdv",
+  components: {
+    VmdSnackbar,
+  },
   data() {
     return {
       date: Date.now(),
       doctimedispo: [],
+      snackbar: null,
     };
   },
   async mounted() {
@@ -110,12 +127,16 @@ export default {
   },
   methods: {
     async handleRegister() {
+      // this.snackbar = "success";
       const ev = {
         _id: this.$route.params.id,
         start_date: this.date.toISOString().split(/[T ,]+/)[0],
       };
       this.doctimedispo = await timedispoService.getDoctorTimeDispo(ev);
       console.log("datetime", await timedispoService.getDoctorTimeDispo(ev));
+    },
+    closeSnackbar() {
+      this.snackbar = null;
     },
     // async addPre_app(ev) {
     //   const name = this.$store.state.auth.user.firstname;
@@ -129,20 +150,20 @@ export default {
     //   });
     // },
     // eslint-disable-next-line no-unused-vars
-    alertfunc(message, type) {
-      var alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-      var wrapper = document.createElement("div");
-      wrapper.innerHTML =
-        '<div class="h-50 alert alert-' +
-        type +
-        ' alert-dismissible" role="alert">' +
-        message +
-        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    // alertfunc(message, type) {
+    //   var alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+    //   var wrapper = document.createElement("div");
+    //   wrapper.innerHTML =
+    //     '<div class="h-50 alert alert-' +
+    //     type +
+    //     ' alert-dismissible" role="alert">' +
+    //     message +
+    //     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
 
-      alertPlaceholder.append(wrapper);
-    },
+    //   alertPlaceholder.append(wrapper);
+    // },
     async addPre_app(ev) {
-      this.alertfunc("Check you Email!", "success");
+      // this.alertfunc("Check you Email!", "success");
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       await axios.get("http://localhost:3000/send", {
