@@ -13,12 +13,18 @@ import PatientBoard from "../views/patient/patientboard.vue";
 import prendrerdv from "../views/patient/prendrerdv.vue";
 import mesRendezVous from "../views/patient/mesRendezVous.vue";
 import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
+import HomeVideo from "../views/video/HomeVideo.vue";
 
 const routes = [
   {
     path: "/",
     name: "/",
     redirect: "/dashboard",
+  },
+  {
+    path: "/meetvideo",
+    name: "meetvideo",
+    component: HomeVideo,
   },
   {
     path: "/toConfirmRendezVous",

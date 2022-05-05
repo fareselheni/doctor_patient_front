@@ -196,6 +196,21 @@
         </li>
       </div>
       <div v-if="currentUser">
+        <li class="nav-item">
+          <router-link to="/meetvideo">
+            <sidenav-collapse
+              url="#"
+              :aria-controls="''"
+              v-bind:collapse="false"
+              collapseRef="HomeVideo"
+              navText="visioconférence"
+            >
+              <template v-slot:icon>
+                <i class="material-icons-round opacity-10 fs-5">dashboard</i>
+              </template>
+            </sidenav-collapse>
+          </router-link>
+        </li>
         <li class="mt-3 nav-item">
           <h6
             class="text-xs ps-4 text-uppercase font-weight-bolder text-white"

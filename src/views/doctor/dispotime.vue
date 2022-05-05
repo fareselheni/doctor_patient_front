@@ -7,6 +7,7 @@
             >Choisi la date et l'heure</span
           >
           <v-date-picker
+            :timezone="'UTC'"
             v-model="range"
             mode="dateTime"
             :masks="masks"

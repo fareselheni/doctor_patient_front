@@ -4,9 +4,8 @@
     :class="[this.$store.state.isRTL ? 'fixed-end' : 'fixed-start']"
     v-if="this.$store.state.showSidenav"
   />
-  <main
-    class="main-content position-relative max-height-vh-100 h-100 overflow-x-hidden"
-  >
+  <!-- max-height-vh-100 h-100 -->
+  <main class="main-content position-relative overflow-x-hidden">
     <!-- nav -->
     <navbar
       :class="[navClasses]"
@@ -15,7 +14,7 @@
       v-if="this.$store.state.showNavbar"
     />
     <router-view />
-    <app-footer class="mt-10" v-show="this.$store.state.showFooter" />
+    <!-- <app-footer class="mt-16" v-show="this.$store.state.showFooter" /> -->
     <configurator
       :toggle="toggleConfigurator"
       :class="[
@@ -30,7 +29,7 @@ import socket from "./socket";
 import Sidenav from "./examples/Sidenav";
 import Configurator from "@/examples/Configurator.vue";
 import Navbar from "@/examples/Navbars/Navbar.vue";
-import AppFooter from "@/examples/Footer.vue";
+// import AppFooter from "@/examples/Footer.vue";
 import { mapMutations } from "vuex";
 import notificationService from "../src/services/notification.service";
 
@@ -40,7 +39,7 @@ export default {
     Sidenav,
     Configurator,
     Navbar,
-    AppFooter,
+    // AppFooter,
   },
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
