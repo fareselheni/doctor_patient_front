@@ -11,6 +11,7 @@ class SchedulerService {
       text: event.text,
       user_id: event.user_id,
       doctor_id: event.doctor_id,
+      typeRDV: event.typeRDV,
     });
   }
   // async updateevent(event) {

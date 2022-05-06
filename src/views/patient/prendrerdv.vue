@@ -11,7 +11,7 @@
                     class="bg-white border px-2 py-1 rounded"
                     :value="inputValue"
                     v-on="inputEvents"
-                    v-on:submit="handleRegister"
+                    v-on:submit="changeDate"
                   />
                 </template>
               </v-date-picker>
@@ -48,17 +48,35 @@
               <tr>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Type rendez-vous</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="dt in doctimedispo" :key="dt._id">
-                <td>
+                <td class="col-lg-3 col-md-2 col-sm-1">
                   {{ dt.start_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}
                 </td>
-                <td>{{ dt.end_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}</td>
-                <td>
-                  <div class="col-lg-8 col-md-4 col-sm-4 text-center">
+                <td class="col-lg-3 col-md-2 col-sm-1">
+                  {{ dt.end_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}
+                </td>
+                <td class="col-lg-3 col-md-2 col-sm-1">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value="visio"
+                      id="flexCheckChecked"
+                      checked
+                      @click="typeRdvChanged"
+                    />
+                    <label class="form-check-label" for="flexCheckChecked">
+                      visioconférance
+                    </label>
+                  </div>
+                </td>
+                <td class="col-lg-3 col-md-2 col-sm-1">
+                  <div class="text-center">
                     <button
                       :disabled="loading"
                       type="submit"
@@ -110,6 +128,7 @@ export default {
       date: Date.now(),
       doctimedispo: [],
       snackbar: null,
+      typeRDV: "visio",
     };
   },
   async mounted() {
@@ -122,11 +141,11 @@ export default {
   },
   watch: {
     changedDate() {
-      this.handleRegister();
+      this.changeDate();
     },
   },
   methods: {
-    async handleRegister() {
+    async changeDate() {
       // this.snackbar = "success";
       const ev = {
         _id: this.$route.params.id,
@@ -138,32 +157,7 @@ export default {
     closeSnackbar() {
       this.snackbar = null;
     },
-    // async addPre_app(ev) {
-    //   const name = this.$store.state.auth.user.firstname;
-    //   console.log("greeting" + name);
-    //   await axios.post("http://localhost:3000/api/pre_app/new", {
-    //     text: "meet with " + name,
-    //     start_date: ev.start_date,
-    //     end_date: ev.end_date,
-    //     user_id: this.$store.state.auth.user.id,
-    //     doctor_id: ev.doctor_id,
-    //   });
-    // },
-    // eslint-disable-next-line no-unused-vars
-    // alertfunc(message, type) {
-    //   var alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-    //   var wrapper = document.createElement("div");
-    //   wrapper.innerHTML =
-    //     '<div class="h-50 alert alert-' +
-    //     type +
-    //     ' alert-dismissible" role="alert">' +
-    //     message +
-    //     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-
-    //   alertPlaceholder.append(wrapper);
-    // },
     async addPre_app(ev) {
-      // this.alertfunc("Check you Email!", "success");
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       await axios.get("http://localhost:3000/send", {
@@ -172,9 +166,21 @@ export default {
           user_id: user_id,
           _id: ev._id,
           event: ev,
+          typeRDV: this.typeRDV,
         },
       });
       socket.emit("getDoctorId", ev.doctor_id);
+    },
+    async typeRdvChanged() {
+      if (this.typeRDV == "visio") {
+        this.typeRDV = "presentiel";
+        console.log(this.typeRDV);
+      } else {
+        this.typeRDV = "visio";
+        console.log(this.typeRDV);
+      }
+      // this.typeRDV = "presentiel";
+      // console.log("typeRdvChanged", this.typeRDV);
     },
   },
 };

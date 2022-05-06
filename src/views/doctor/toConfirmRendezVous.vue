@@ -18,7 +18,7 @@
             </thead>
             <tbody>
               <tr v-for="dt in mesRdvs" :key="dt._id">
-                <td>test</td>
+                <td>{{ dt.text }}</td>
                 <td>
                   {{ dt.start_date.split(/[T ,]+/)[1].split(/[. ,]+/)[0] }}
                 </td>
