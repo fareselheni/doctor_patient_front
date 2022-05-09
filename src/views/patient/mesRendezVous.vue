@@ -42,6 +42,11 @@
                     >
                       STATUS
                     </th>
+                    <th
+                      class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -73,6 +78,14 @@
                         dt.status
                       }}</span>
                     </td>
+                    <td class="align-middle text-center text-sm">
+                      <button
+                        @click="deleteRDV(dt)"
+                        class="btn btn-sm btn-danger"
+                      >
+                        Annuler
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -87,7 +100,8 @@
 <script>
 import axios from "axios";
 import mesRendezVousService from "../../services/mesRendezVous.service";
-import modelService from "../../services/model.service";
+// import modelService from "../../services/model.service";
+import PreAppService from "../../services/preApp.service";
 export default {
   name: "mesRendezVous",
   data() {
@@ -101,18 +115,16 @@ export default {
     if (this.$route.query.id) {
       var _id = this.$route.query.id;
       await axios.get("http://localhost:3000/verify?id=" + _id, {});
+      this.mesRdvs = await mesRendezVousService.Patientallrdvs();
     }
   },
   async mounted() {
     this.mesRdvs = await mesRendezVousService.Patientallrdvs();
   },
   methods: {
-    async getdoctorFullName(_id) {
-      let doctor = await modelService.getDoctorById(_id);
-      this.doctorFullName = doctor[0].firstname + " " + doctor[0].lastname;
-      //   console.log("fullname", this.doctorFullName);
-      //   return doctor[0].firstname + " " + doctor[0].lastname;
-      return "test";
+    async deleteRDV(ev) {
+      await PreAppService.deleteevent(ev);
+      this.mesRdvs = await mesRendezVousService.Patientallrdvs();
     },
   },
 };

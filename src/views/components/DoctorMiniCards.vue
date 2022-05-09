@@ -36,9 +36,6 @@
       :class="this.$store.state.isRTL ? 'text-start' : 'text-end'"
     >
       <p class="mb-0">
-        <span class="text-success text-sm font-weight-bolder">{{
-          percentage
-        }}</span>
         {{ detail }}
       </p>
       <div>
