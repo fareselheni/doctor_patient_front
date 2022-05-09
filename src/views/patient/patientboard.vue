@@ -152,7 +152,7 @@ export default {
   async mounted() {
     this.allgouvernorats = await ModelService.allgouvernorats();
     this.allspecialites = await ModelService.allspecialites();
-    this.filtreddoctors = await SearchDoctor.filtreDoctors();
+    this.handleRegister();
   },
 };
 </script>
