@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import store from "../store";
 import Dashboard from "../views/Dashboard.vue";
 import Tables from "../views/Tables.vue";
 import Billing from "../views/Billing.vue";
@@ -15,7 +16,11 @@ import mesRendezVous from "../views/patient/mesRendezVous.vue";
 import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 import HomeVideo from "../views/video/HomeVideo.vue";
 
+// const doctor = this.$store.state.auth.user.roles[0];
 const routes = [
+  // if(this.$store.state.auth.user.roles.includes('ROLE_DOCTOR')){
+
+  // }
   {
     path: "/",
     name: "/",
@@ -102,6 +107,45 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   linkActiveClass: "active",
+});
+router.beforeEach((to, from, next) => {
+  const PublicPages = ["/sign-in", "/sign-up"];
+  const authRequired = !PublicPages.includes(to.path);
+  if (authRequired && !store.state.auth.user) {
+    next("/sign-in");
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  const doctorPages = ["/appScheduler", "/toConfirmRendezVous", "/Dispotime"];
+  const doctorRequired = doctorPages.includes(to.fullPath);
+  // trying to access a restricted page + not logged in
+  // redirect to login page
+  if (
+    !store.state.auth.user["roles"].includes("ROLE_DOCTOR") &&
+    doctorRequired
+  ) {
+    next("/mesRendezVous");
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  const PatientPages = ["/patientboard", "/mesRendezVous"];
+  const PatientRequired = PatientPages.includes(to.fullPath);
+  // trying to access a restricted page + not logged in
+  // redirect to login page
+  if (
+    !store.state.auth.user["roles"].includes("ROLE_PATIENT") &&
+    PatientRequired
+  ) {
+    next("/appScheduler");
+  } else {
+    next();
+  }
 });
 
 export default router;
