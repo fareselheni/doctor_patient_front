@@ -10,6 +10,7 @@
             :timezone="'UTC'"
             v-model="range"
             mode="dateTime"
+            :min-date="new Date()"
             :masks="masks"
             is-range
           >

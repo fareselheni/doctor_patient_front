@@ -208,12 +208,12 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/mesRendezVousConfirmé">
+          <router-link to="/mesRendezVousConfirme">
             <sidenav-collapse
               url="#"
               :aria-controls="''"
               v-bind:collapse="false"
-              collapseRef="mesRendezVousConfirmé"
+              collapseRef="mesRendezVousConfirme"
               navText="Rendez-vous confirmé"
             >
               <template v-slot:icon>

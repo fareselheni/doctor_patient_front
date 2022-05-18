@@ -12,7 +12,9 @@
           <input type="text" id="url" required v-model="url" />
         </div>
         <div class="submit-container">
-          <button type="submit">Start meeting</button>
+          <button type="submit" class="btn btn-outline-success mt-2">
+            Start meeting
+          </button>
         </div>
       </form>
 
@@ -87,7 +89,7 @@ main {
   display: flex;
   justify-content: center;
 }
-.join-form .submit-container button {
+/* .join-form .submit-container button {
   padding: 7px 16px 9px;
   font-size: 12px;
   font-weight: bold;
@@ -97,7 +99,7 @@ main {
   margin-bottom: 12px;
   background-color: #1bebb9;
   cursor: pointer;
-}
+} */
 .join-form .name-container {
   flex-direction: column;
 }

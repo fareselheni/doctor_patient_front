@@ -49,8 +49,8 @@ const routes = [
     component: mesRendezVous,
   },
   {
-    path: "/mesRendezVousConfirmé",
-    name: "mesRendezVousConfirmé",
+    path: "/mesRendezVousConfirme",
+    name: "mesRendezVousConfirme",
     component: mesRendezVousConfirmé,
   },
   {
