@@ -128,6 +128,19 @@
             url="#"
             :aria-controls="''"
             v-bind:collapse="false"
+            collapseRef="doctorDashboard"
+            navText="Dashboard Docteur"
+          >
+            <template v-slot:icon>
+              <i class="material-icons-round opacity-10 fs-5">dashboard</i>
+            </template>
+          </sidenav-collapse>
+        </li>
+        <li class="nav-item">
+          <sidenav-collapse
+            url="#"
+            :aria-controls="''"
+            v-bind:collapse="false"
             collapseRef="appScheduler"
             navText="Calendrier"
           >

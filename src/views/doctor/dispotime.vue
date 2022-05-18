@@ -190,7 +190,6 @@ export default {
   },
   async mounted() {
     this.mesRdvs = await TimedispoService.doctorallTimeDispoevents();
-    console.log("this.mesRdvs", this.mesRdvs);
   },
 };
 </script>

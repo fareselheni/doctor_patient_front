@@ -15,6 +15,7 @@ import prendrerdv from "../views/patient/prendrerdv.vue";
 import mesRendezVous from "../views/patient/mesRendezVous.vue";
 import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 import HomeVideo from "../views/video/HomeVideo.vue";
+import doctorDashboard from "../views/doctor/doctorDashboard.vue";
 
 // const doctor = this.$store.state.auth.user.roles[0];
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: "/",
     name: "/",
     redirect: "/dashboard",
+  },
+  {
+    path: "/doctorDashboard",
+    name: "doctorDashboard",
+    component: doctorDashboard,
   },
   {
     path: "/meetvideo",
@@ -110,7 +116,7 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   const PublicPages = ["/sign-in", "/sign-up"];
-  const authRequired = !PublicPages.includes(to.path);
+  const authRequired = !PublicPages.includes(to.fullPath);
   if (authRequired && !store.state.auth.user) {
     next("/sign-in");
   } else {
@@ -118,31 +124,64 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+//Admin Auth Guard
 router.beforeEach((to, from, next) => {
-  const doctorPages = ["/appScheduler", "/toConfirmRendezVous", "/Dispotime"];
-  const doctorRequired = doctorPages.includes(to.fullPath);
-  // trying to access a restricted page + not logged in
-  // redirect to login page
-  if (
-    !store.state.auth.user["roles"].includes("ROLE_DOCTOR") &&
-    doctorRequired
-  ) {
-    next("/mesRendezVous");
+  const adminPages = ["/dashboard"];
+  const adminRequired = adminPages.includes(to.fullPath);
+  const signedIn = localStorage.getItem("user");
+  if (signedIn !== null) {
+    if (
+      !store.state.auth.user["roles"].includes("ROLE_ADMIN") &&
+      adminRequired
+    ) {
+      if (store.state.auth.user["roles"].includes("ROLE_DOCTOR")) {
+        next("/doctorDashboard");
+      } else {
+        next("/patientboard");
+      }
+    } else {
+      next();
+    }
   } else {
     next();
   }
 });
 
+//Doctor Auth Guard
+router.beforeEach((to, from, next) => {
+  const doctorPages = ["/appScheduler", "/toConfirmRendezVous", "/Dispotime"];
+  const doctorRequired = doctorPages.includes(to.fullPath);
+  const signedIn = localStorage.getItem("user");
+  if (signedIn !== null) {
+    if (
+      !store.state.auth.user["roles"].includes("ROLE_DOCTOR") &&
+      doctorRequired
+    ) {
+      next("/patientboard");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+//Patient Auth Guard
 router.beforeEach((to, from, next) => {
   const PatientPages = ["/patientboard", "/mesRendezVous"];
   const PatientRequired = PatientPages.includes(to.fullPath);
+  const signedIn = localStorage.getItem("user");
   // trying to access a restricted page + not logged in
   // redirect to login page
-  if (
-    !store.state.auth.user["roles"].includes("ROLE_PATIENT") &&
-    PatientRequired
-  ) {
-    next("/appScheduler");
+  if (signedIn !== null) {
+    if (
+      !store.state.auth.user["roles"].includes("ROLE_PATIENT") &&
+      PatientRequired
+    ) {
+      next("/doctorDashboard");
+    } else {
+      next();
+    }
   } else {
     next();
   }
