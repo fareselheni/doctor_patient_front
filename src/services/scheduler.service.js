@@ -30,6 +30,14 @@ class SchedulerService {
     });
     return response.data.allevents;
   }
+  async patientallConfirmedevents() {
+    const response = await axios.get(API_URL + "patient/getall", {
+      params: {
+        _id: store.state.auth.user.id,
+      },
+    });
+    return response.data.allevents;
+  }
   async deleteevent(ev) {
     // return axios.delete(API_URL + "deleteevent", {});
     console.log("from service", ev);

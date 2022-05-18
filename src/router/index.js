@@ -13,6 +13,7 @@ import Dispotime from "../views/doctor/dispotime.vue";
 import PatientBoard from "../views/patient/patientboard.vue";
 import prendrerdv from "../views/patient/prendrerdv.vue";
 import mesRendezVous from "../views/patient/mesRendezVous.vue";
+import mesRendezVousConfirmé from "../views/patient/mesRendezVousConfirmé.vue";
 import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 import HomeVideo from "../views/video/HomeVideo.vue";
 import doctorDashboard from "../views/doctor/doctorDashboard.vue";
@@ -46,6 +47,11 @@ const routes = [
     path: "/mesRendezVous",
     name: "mesRendezVous",
     component: mesRendezVous,
+  },
+  {
+    path: "/mesRendezVousConfirmé",
+    name: "mesRendezVousConfirmé",
+    component: mesRendezVousConfirmé,
   },
   {
     path: "/Dispotime",

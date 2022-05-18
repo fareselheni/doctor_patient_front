@@ -207,6 +207,21 @@
             </sidenav-collapse>
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/mesRendezVousConfirmé">
+            <sidenav-collapse
+              url="#"
+              :aria-controls="''"
+              v-bind:collapse="false"
+              collapseRef="mesRendezVousConfirmé"
+              navText="Rendez-vous confirmé"
+            >
+              <template v-slot:icon>
+                <i class="material-icons-round opacity-10 fs-5">dashboard</i>
+              </template>
+            </sidenav-collapse>
+          </router-link>
+        </li>
       </div>
       <div v-if="currentUser">
         <li class="nav-item">

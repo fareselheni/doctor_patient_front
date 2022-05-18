@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row mb-4">
+    <div class="row border shadow-lg mb-5 rounded">
       <div class="col-lg-12 position-relative z-index-2">
         <Form role="form" @submit="handleRegister">
           <div class="row">

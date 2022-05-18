@@ -2,7 +2,7 @@
   <div class="d-flex flex-column">
     <div class="d-flex justify-content-center shadow-md rounded px-8 pt-2 pb-2">
       <form class="" @submit="handleAdd" @submit.prevent>
-        <div class="mb-1">
+        <div class="mb-2">
           <span class="block text-gray-600 text-sm text-left font-bold mb-2"
             >Choisi la date et l'heure</span
           >
