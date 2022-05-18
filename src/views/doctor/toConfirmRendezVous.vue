@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import socket from "../../socket";
 import mesRendezVousService from "../../services/mesRendezVous.service";
 import SchedulerService from "../../services/scheduler.service";
 import PreAppService from "../../services/preApp.service";
@@ -136,6 +137,7 @@ export default {
       await SchedulerService.addevent(ev);
       await PreAppService.deleteevent(ev);
       this.mesRdvs = await mesRendezVousService.Doctorallrdvs();
+      socket.emit("getPatientId", ev.user_id);
     },
     async deleteRDV(ev) {
       await PreAppService.deleteevent(ev);

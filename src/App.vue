@@ -82,6 +82,15 @@ export default {
         }
       }
     });
+    socket.on("notifyPatient", (msg) => {
+      console.log("message: " + msg);
+      console.log("id: " + this.$store.state.auth.user.id);
+      if (msg == this.$store.state.auth.user.id) {
+        if ("serviceWorker" in navigator) {
+          notificationService.send();
+        }
+      }
+    });
   },
 };
 </script>
