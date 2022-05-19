@@ -37,7 +37,6 @@ class TimedispoService {
       API_URL + "timedispo/doctor/" + ev._id + "/" + ev.start_date,
       {}
     );
-    console.log(response.data.tdispo);
     return response.data.tdispo;
   }
 }

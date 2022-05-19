@@ -46,10 +46,10 @@
           <table class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Type rendez-vous</th>
-                <th class="text-center">Action</th>
+                <th>HEURE DE DEBUT</th>
+                <th>HEURE DE FIN</th>
+                <th>TYPE DE RENDEZ-VOUS</th>
+                <th class="text-center">ACTION</th>
               </tr>
             </thead>
             <tbody>
@@ -97,13 +97,24 @@
         </div>
         <div class="position-fixed top-1 end-1 z-index-2">
           <vmd-snackbar
-            v-if="snackbar === 'success'"
+            v-if="snackbar === 'success' && existingPreApp < 1"
             title="Notification"
             date="1 min ago"
             description="veuillez confirmer votre rendez-vous par email."
             icon="done"
             color="white"
             iconColor="success"
+            :closeHandler="closeSnackbar"
+            iconName="close"
+          />
+          <vmd-snackbar
+            v-if="snackbar === 'success' && existingPreApp > 0"
+            title="Alert"
+            date="1 min ago"
+            description="Vous ne pouvez prendre q'un seul rendez-vous avec le meme docteur"
+            icon="error"
+            color="white"
+            iconColor="warning"
             :closeHandler="closeSnackbar"
             iconName="close"
           />
@@ -118,6 +129,7 @@ import VmdSnackbar from "@/components/VmdSnackbar.vue";
 import socket from "../../socket";
 import axios from "axios";
 import timedispoService from "../../services/timedispo.service";
+import preAppService from "../../services/preApp.service";
 export default {
   name: "prendrerdv",
   components: {
@@ -129,10 +141,14 @@ export default {
       doctimedispo: [],
       snackbar: null,
       typeRDV: "visio",
+      existingPreApp: null,
     };
   },
   async mounted() {
-    console.log(this.$route.params.id);
+    this.existingPreApp = await preAppService.checkExistingPreApp(
+      this.$route.params.id
+    );
+    console.log(this.existingPreApp);
   },
   computed: {
     changedDate() {
@@ -152,7 +168,6 @@ export default {
         start_date: this.date.toISOString().split(/[T ,]+/)[0],
       };
       this.doctimedispo = await timedispoService.getDoctorTimeDispo(ev);
-      console.log("datetime", await timedispoService.getDoctorTimeDispo(ev));
     },
     closeSnackbar() {
       this.snackbar = null;
@@ -160,27 +175,27 @@ export default {
     async addPre_app(ev) {
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
-      await axios.get("http://localhost:3000/send", {
-        params: {
-          to: user_email,
-          user_id: user_id,
-          _id: ev._id,
-          event: ev,
-          typeRDV: this.typeRDV,
-        },
-      });
-      socket.emit("getDoctorId", ev.doctor_id);
+      if (this.existingPreApp >= 1) {
+        console.log("canoooooooot");
+      } else {
+        await axios.get("http://localhost:3000/send", {
+          params: {
+            to: user_email,
+            user_id: user_id,
+            _id: ev._id,
+            event: ev,
+            typeRDV: this.typeRDV,
+          },
+        });
+        socket.emit("getDoctorId", ev.doctor_id);
+      }
     },
     async typeRdvChanged() {
       if (this.typeRDV == "visio") {
         this.typeRDV = "presentiel";
-        console.log(this.typeRDV);
       } else {
         this.typeRDV = "visio";
-        console.log(this.typeRDV);
       }
-      // this.typeRDV = "presentiel";
-      // console.log("typeRdvChanged", this.typeRDV);
     },
   },
 };

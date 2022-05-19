@@ -1,5 +1,5 @@
 import axios from "axios";
-// import store from "../store";
+import store from "../store";
 const API_URL = "http://localhost:3000/api/pre_app/";
 class PreAppService {
   //   async addtimedispo(event) {
@@ -29,6 +29,15 @@ class PreAppService {
     return axios.delete(API_URL + "delete/" + ev._id).then((response) => {
       console.log(response);
     });
+  }
+  async checkExistingPreApp(id) {
+    const response = await axios.get(API_URL + "checkExistingPreApp", {
+      params: {
+        user_id: store.state.auth.user.id,
+        _id: id,
+      },
+    });
+    return response.data.allpreApp;
   }
   //   async getDoctorTimeDispo(ev) {
   //     const response = await axios.get(

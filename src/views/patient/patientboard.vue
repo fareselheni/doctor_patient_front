@@ -116,7 +116,6 @@
 import ModelService from "../../services/model.service";
 import MiniCards from "../components/DoctorMiniCards.vue";
 import SearchDoctor from "../../services/searchdoctor.service";
-// import VmdInput from "@/components/VmdInput.vue";
 import { Form, Field } from "vee-validate";
 export default {
   name: "patientboard",
