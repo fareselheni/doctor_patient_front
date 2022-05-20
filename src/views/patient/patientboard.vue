@@ -98,7 +98,7 @@
               v-else
               :title="`${doc.gouvernorat}`"
               :value="`${doc.firstname + ' ' + doc.lastname}`"
-              percentage="+3%"
+              percentage="3"
               iconName="person"
               :detail="`${doc.specialite}`"
               iconClass="text-white"

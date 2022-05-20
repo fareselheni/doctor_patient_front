@@ -28,6 +28,12 @@
       >
         <p class="text-sm mb-0 text-capitalize">{{ title }}</p>
         <h4 class="mb-0">{{ value }}</h4>
+        <span class="text-sm"
+          >Note:
+          <span class="text-success font-weight-bolder">{{
+            percentage
+          }}</span></span
+        >
       </div>
     </div>
     <hr class="dark horizontal my-0" />
@@ -52,17 +58,37 @@
       >
         Click to Navigate
       </button> -->
+      <div class="d-flex justify-content-center">
+        <star-rating @update:rating="setRating" :star-size="20" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import RatingService from "../../services/rating.service";
+import StarRating from "vue-star-rating";
 export default {
   name: "mini-cards",
+  components: {
+    StarRating,
+  },
   data() {
     return {
+      rating: 0,
       reverseDirection: "flex-row-reverse justify-content-between",
     };
+  },
+  methods: {
+    setRating(rating) {
+      this.rating = rating;
+      const event = {
+        score: this.rating,
+        doctor_id: this.doctor_id,
+      };
+      RatingService.addnewRating(event);
+      console.log(typeof this.rating);
+    },
   },
   props: {
     directionReverse: Boolean,
