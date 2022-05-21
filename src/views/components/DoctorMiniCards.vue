@@ -28,12 +28,25 @@
       >
         <p class="text-sm mb-0 text-capitalize">{{ title }}</p>
         <h4 class="mb-0">{{ value }}</h4>
-        <span class="text-sm"
-          >Note:
-          <span class="text-success font-weight-bolder">{{
-            doctorscore.toFixed(2)
-          }}</span></span
-        >
+        <div class="d-flex justify-content-between">
+          <div>
+            <star-rating
+              @update:rating="setRating"
+              :border-width="1"
+              :star-size="18"
+            />
+          </div>
+          <div class="d-flex">
+            <div class="text-lg font-weight-bolder">
+              {{ doctorscore.toFixed(2) }}
+            </div>
+            <div>
+              <i class="material-icons-round icon-yellow opacity-10 fs-5"
+                >stars</i
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <hr class="dark horizontal my-0" />
@@ -58,9 +71,9 @@
       >
         Click to Navigate
       </button> -->
-      <div class="d-flex justify-content-center">
+      <!-- <div class="d-flex justify-content-center">
         <star-rating @update:rating="setRating" :star-size="20" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -135,3 +148,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+i.icon-yellow {
+  color: rgb(255, 196, 0);
+}
+</style>
