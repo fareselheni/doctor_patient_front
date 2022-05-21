@@ -31,7 +31,7 @@
         <span class="text-sm"
           >Note:
           <span class="text-success font-weight-bolder">{{
-            percentage
+            doctorscore.toFixed(2)
           }}</span></span
         >
       </div>
@@ -76,18 +76,27 @@ export default {
   data() {
     return {
       rating: 0,
+      doctorscore: 0,
       reverseDirection: "flex-row-reverse justify-content-between",
     };
   },
+  async mounted() {
+    // eslint-disable-next-line vue/no-mutating-props
+    await this.getDoctorScore();
+    console.log("score", this.doctorscore);
+  },
   methods: {
-    setRating(rating) {
+    async setRating(rating) {
       this.rating = rating;
       const event = {
         score: this.rating,
         doctor_id: this.doctor_id,
       };
-      RatingService.addnewRating(event);
-      console.log(typeof this.rating);
+      await RatingService.addnewRating(event);
+      await this.getDoctorScore();
+    },
+    async getDoctorScore() {
+      this.doctorscore = await RatingService.getScore(this.doctor_id);
     },
   },
   props: {

@@ -17,5 +17,13 @@ class RatingService {
     });
     return response.data.allevents;
   }
+  async getScore(id) {
+    const response = await axios.get(API_URL + "getscore", {
+      params: {
+        doctor_id: id,
+      },
+    });
+    return response.data.score;
+  }
 }
 export default new RatingService();
