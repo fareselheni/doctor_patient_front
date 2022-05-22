@@ -78,7 +78,8 @@ export default {
       console.log("id: " + this.$store.state.auth.user.id);
       if (msg == this.$store.state.auth.user.id) {
         if ("serviceWorker" in navigator) {
-          notificationService.send();
+          var bodyNotification = "nouvelle demande de rendez-vous";
+          notificationService.send(bodyNotification);
         }
       }
     });
@@ -87,7 +88,8 @@ export default {
       console.log("id: " + this.$store.state.auth.user.id);
       if (msg == this.$store.state.auth.user.id) {
         if ("serviceWorker" in navigator) {
-          notificationService.send();
+          var bodyNotification = "votre rendez vous est confirmé";
+          notificationService.send(bodyNotification);
         }
       }
     });

@@ -2,7 +2,7 @@ import axios from "axios";
 const publicVapidKey =
   "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
 class NotificationService {
-  async send() {
+  async send(bodyNotification) {
     // Register Service Worker
     // eslint-disable-next-line no-console
     console.log("Registering service worker...");
@@ -27,6 +27,7 @@ class NotificationService {
     console.log("Sending Push...");
     await axios.post("http://localhost:3000/subscribe", {
       body: JSON.stringify(subscription),
+      bodyNotification: bodyNotification,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",

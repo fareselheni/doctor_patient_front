@@ -34,6 +34,33 @@
               @update:rating="setRating"
               :border-width="1"
               :star-size="18"
+              :show-rating="false"
+              :animate="true"
+              :star-points="[
+                23,
+                2,
+                14,
+                17,
+                0,
+                19,
+                10,
+                34,
+                7,
+                50,
+                23,
+                43,
+                38,
+                50,
+                36,
+                34,
+                46,
+                19,
+                31,
+                17,
+              ]"
+              :active-on-click="true"
+              :clearable="true"
+              :padding="3"
             />
           </div>
           <div class="d-flex">
@@ -96,7 +123,6 @@ export default {
   async mounted() {
     // eslint-disable-next-line vue/no-mutating-props
     await this.getDoctorScore();
-    console.log("score", this.doctorscore);
   },
   methods: {
     async setRating(rating) {
