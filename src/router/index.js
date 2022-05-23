@@ -17,6 +17,7 @@ import mesRendezVousConfirmé from "../views/patient/mesRendezVousConfirmé.vue"
 import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 import HomeVideo from "../views/video/HomeVideo.vue";
 import doctorDashboard from "../views/doctor/doctorDashboard.vue";
+import generatePrescription from "../views/doctor/generatePrescription.vue";
 
 // const doctor = this.$store.state.auth.user.roles[0];
 const routes = [
@@ -32,6 +33,11 @@ const routes = [
     path: "/doctorDashboard",
     name: "doctorDashboard",
     component: doctorDashboard,
+  },
+  {
+    path: "/generatePrescription",
+    name: "generatePrescription",
+    component: generatePrescription,
   },
   {
     path: "/meetvideo",
@@ -155,7 +161,12 @@ router.beforeEach((to, from, next) => {
 
 //Doctor Auth Guard
 router.beforeEach((to, from, next) => {
-  const doctorPages = ["/appScheduler", "/toConfirmRendezVous", "/Dispotime"];
+  const doctorPages = [
+    "/appScheduler",
+    "/toConfirmRendezVous",
+    "/Dispotime",
+    "/generatePrescription",
+  ];
   const doctorRequired = doctorPages.includes(to.fullPath);
   const signedIn = localStorage.getItem("user");
   if (signedIn !== null) {

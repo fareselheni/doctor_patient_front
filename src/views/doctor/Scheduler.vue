@@ -28,6 +28,18 @@ export default {
     //   console.log("teeeee", scheduler.checkCollision(newevent));
     // },
     $_initSchedulerEvents: function () {
+      //default definition
+      // eslint-disable-next-line no-undef
+      // scheduler.templates.event_text = function (start, end, ev) {
+      //   return ev.text;
+      // };
+      // // eslint-disable-next-line no-undef
+      // scheduler.attachEvent("onTemplatesReady", function () {
+      //   // eslint-disable-next-line no-undef
+      //   scheduler.templates.event_text = function (start, end, event) {
+      //     return "<b>" + event.user_name + "</b><i>" + "hello" + "</i>";
+      //   };
+      // });
       // eslint-disable-next-line no-undef
       if (!scheduler.$_eventsInitialized) {
         // eslint-disable-next-line no-undef
