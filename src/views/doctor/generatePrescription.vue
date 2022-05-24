@@ -49,7 +49,9 @@
           <label id="drug" class="ps-3">Liste des médicaments</label>
         </div>
       </div>
-      <button @click="exportToPDF">Export to PDF</button>
+      <div class="w-50 pt-2 m-auto d-flex justify-content-center">
+        <button @click="exportToPDF">Export to PDF</button>
+      </div>
     </div>
   </div>
 </template>
@@ -86,7 +88,7 @@ export default {
     exportToPDF() {
       html2pdf(this.$refs.document, {
         margin: 1,
-        filename: "document.pdf",
+        filename: "Ordonnance.pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { dpi: 192, letterRendering: true },
         jsPDF: { unit: "in", format: "letter", orientation: "landscape" },

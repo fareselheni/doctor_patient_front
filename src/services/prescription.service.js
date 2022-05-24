@@ -10,5 +10,13 @@ class PrescriptionService {
       user_id: event.user_id,
     });
   }
+  async getPatientPrescriptions() {
+    const response = await axios.get(API_URL + "patient/getall", {
+      params: {
+        _id: store.state.auth.user.id,
+      },
+    });
+    return response.data.allevents;
+  }
 }
 export default new PrescriptionService();
