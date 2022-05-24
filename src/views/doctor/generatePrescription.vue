@@ -6,7 +6,8 @@
       <div>
         <select
           style="background-color: white"
-          name="specialite"
+          name="select_patient"
+          as="select"
           class="form-select text-center border border-dark w-75 m-auto"
           v-model="patient"
         >
@@ -14,7 +15,7 @@
           <option
             v-for="patient in patientList"
             :key="patient.user_id"
-            :value="patient.user_name"
+            :value="patient"
           >
             {{ patient.user_name }}
           </option>
@@ -31,10 +32,13 @@
           class="form-control border border-dark"
           id="exampleFormControlTextarea1"
           rows="3"
-          v-model="name"
+          v-model="drugs"
         ></textarea>
       </div>
-      <button class="mt-2 m-auto" @click="voir">voir</button>
+      <div class="w-50 m-auto">
+        <button class="mt-2 me-2 m-auto" @click="voir">voir</button>
+        <button @click="sendToPatient">sendToPatient</button>
+      </div>
     </div>
     <div class="d-flex flex-column">
       <div id="maindiv" ref="document">
@@ -50,13 +54,14 @@
   </div>
 </template>
 <script>
+import PrescriptionService from "../../services/prescription.service";
 import html2pdf from "html2pdf.js";
 import SchedulerService from "../../services/scheduler.service";
 export default {
   name: "GeneratePrescription",
   data() {
     return {
-      name: "",
+      drugs: "",
       patient: "",
       patientList: [],
       filtredpatientList: [],
@@ -65,10 +70,18 @@ export default {
   },
   methods: {
     async voir() {
-      // document.getElementById("input23").value = this.name;
-      document.getElementById("drug").innerHTML = this.name;
-      document.getElementById("patient_name").innerHTML = this.patient;
-      console.log("zzz", this.name);
+      document.getElementById("drug").innerHTML = this.drugs;
+      document.getElementById(
+        "patient_name"
+      ).innerHTML = this.patient.user_name;
+    },
+    async sendToPatient() {
+      const event = {
+        drugs: this.drugs,
+        date: this.date,
+        user_id: this.patient.user_id,
+      };
+      await PrescriptionService.addnewPrescription(event);
     },
     exportToPDF() {
       html2pdf(this.$refs.document, {
