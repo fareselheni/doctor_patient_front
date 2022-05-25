@@ -1,11 +1,12 @@
 <template>
   <div class="p-4 d-flex flex-row flex-wrap justify-content-around">
     <div
-      v-for="pres in mesOrdonnances"
+      v-for="(pres, index) in mesOrdonnances"
       v-bind:key="pres"
       class="border border-4 p-4 m-4"
+      :ref="setItemRef"
     >
-      <div id="maindiv" ref="document">
+      <div id="maindiv">
         <!-- <label id="labelz" class="pt-7 ps-12">ddddd</label> -->
         <div class="d-flex flex-column">
           <label id="patient_name" class="pt-6 ps-5">{{
@@ -16,7 +17,7 @@
         </div>
       </div>
       <div class="w-50 pt-2 m-auto d-flex justify-content-center">
-        <button @click="exportToPDF">Export to PDF</button>
+        <button @click="exportToPDF(index)">Export to PDF</button>
       </div>
     </div>
   </div>
@@ -30,15 +31,16 @@ export default {
   data() {
     return {
       mesOrdonnances: [],
+      itemRefs: [],
     };
   },
   async mounted() {
     this.mesOrdonnances = await PrescriptionService.getPatientPrescriptions();
-    console.log(this.mesOrdonnances);
   },
   methods: {
-    exportToPDF() {
-      html2pdf(this.$refs.document, {
+    exportToPDF(index) {
+      // console.log(this.$refs);
+      html2pdf(this.itemRefs[index], {
         margin: 1,
         filename: "Ordonnance.pdf",
         image: { type: "jpeg", quality: 0.98 },
@@ -46,6 +48,17 @@ export default {
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
       });
     },
+    setItemRef(el) {
+      if (el) {
+        this.itemRefs.push(el);
+      }
+    },
+  },
+  beforeUpdate() {
+    this.itemRefs = [];
+  },
+  updated() {
+    console.log(this.itemRefs);
   },
 };
 </script>
