@@ -16,8 +16,19 @@
           <label id="drug" class="ps-3">{{ pres.drugs }}</label>
         </div>
       </div>
-      <div class="w-50 pt-2 m-auto d-flex justify-content-center">
-        <button @click="exportToPDF(index)">Export to PDF</button>
+      <div class="pt-2 m-auto d-flex justify-content-center">
+        <div class="d-flex flex-row">
+          <div class="mx-2">
+            <button @click="exportToPDF(index)" class="btn btn-success">
+              Telecharger
+            </button>
+          </div>
+          <div class="mx-2">
+            <button @click="deletePrescription(pres)" class="btn btn-danger">
+              Supprimer
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +63,10 @@ export default {
       if (el) {
         this.itemRefs.push(el);
       }
+    },
+    async deletePrescription(ev) {
+      await PrescriptionService.deleteevent(ev);
+      this.mesOrdonnances = await PrescriptionService.getPatientPrescriptions();
     },
   },
   beforeUpdate() {

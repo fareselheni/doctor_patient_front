@@ -18,5 +18,10 @@ class PrescriptionService {
     });
     return response.data.allevents;
   }
+  async deleteevent(ev) {
+    return axios.delete(API_URL + "delete/" + ev._id).then((response) => {
+      console.log(response);
+    });
+  }
 }
 export default new PrescriptionService();

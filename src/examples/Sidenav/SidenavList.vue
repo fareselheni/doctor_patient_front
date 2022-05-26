@@ -235,6 +235,21 @@
             </sidenav-collapse>
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/myPrescriptions">
+            <sidenav-collapse
+              url="#"
+              :aria-controls="''"
+              v-bind:collapse="false"
+              collapseRef="myPrescriptions"
+              navText="mes Ordonnances"
+            >
+              <template v-slot:icon>
+                <i class="material-icons-round opacity-10 fs-5">dashboard</i>
+              </template>
+            </sidenav-collapse>
+          </router-link>
+        </li>
       </div>
       <div v-if="currentUser">
         <li class="nav-item">
