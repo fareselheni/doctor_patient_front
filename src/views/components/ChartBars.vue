@@ -49,7 +49,7 @@ export default {
     new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["M", "T", "W", "T", "F", "S", "S"],
+        labels: ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
         datasets: [
           {
             label: "Sales",
