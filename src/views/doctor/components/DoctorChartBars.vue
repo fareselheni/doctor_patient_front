@@ -25,6 +25,7 @@
 
 <script>
 import Chart from "chart.js/auto";
+import DoctorApiService from "../../../services/doctor_api.service";
 
 export default {
   name: "chart-bars",
@@ -41,31 +42,21 @@ export default {
       type: String,
       default: "campaign sent 2 days ago",
     },
-    monday: {
-      type: Number,
-    },
-    tuesday: {
-      type: String,
-    },
-    wednesday: {
-      type: String,
-    },
-    thursday: {
-      type: String,
-    },
-    friday: {
-      type: String,
-    },
-    saturday: {
-      type: String,
-    },
-    day: {
-      type: Array,
+  },
+  data() {
+    return {
+      CountEveryDayAppointments: "",
+    };
+  },
+  methods: {
+    async Countcharts() {
+      this.CountEveryDayAppointments = await DoctorApiService.CountEveryDayAppointments();
+      console.log("chhh", this.CountEveryDayAppointments.monday);
     },
   },
 
-  mounted() {
-    console.log("daaaay", this.monday);
+  async mounted() {
+    await this.Countcharts();
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
@@ -80,7 +71,15 @@ export default {
             borderRadius: 4,
             borderSkipped: false,
             backgroundColor: "rgba(255, 255, 255, .8)",
-            data: [this.monday.toString(), 20, 10, 22, 50, 10, 40],
+            data: [
+              this.CountEveryDayAppointments.monday,
+              this.CountEveryDayAppointments.tuesday,
+              this.CountEveryDayAppointments.wednesday,
+              this.CountEveryDayAppointments.thursday,
+              this.CountEveryDayAppointments.friday,
+              this.CountEveryDayAppointments.saturday,
+              0,
+            ],
             maxBarThickness: 6,
           },
         ],

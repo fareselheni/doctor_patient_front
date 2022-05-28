@@ -50,6 +50,14 @@ class DoctorApiService {
     });
     return response.data.result;
   }
+  async CountEveryDayAppointments() {
+    const response = await axios.get(API_URL + "CountEveryDayAppointments", {
+      params: {
+        doctor_id: store.state.auth.user.id,
+      },
+    });
+    return response.data;
+  }
 }
 
 export default new DoctorApiService();
