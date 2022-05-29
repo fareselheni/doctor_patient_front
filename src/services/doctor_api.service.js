@@ -58,6 +58,14 @@ class DoctorApiService {
     });
     return response.data;
   }
+  async CountEveryMonthAppointments() {
+    const response = await axios.get(API_URL + "CountEveryMonthAppointments", {
+      params: {
+        doctor_id: store.state.auth.user.id,
+      },
+    });
+    return response.data;
+  }
 }
 
 export default new DoctorApiService();

@@ -4,16 +4,18 @@
       class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent"
     >
       <div
-        class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1"
+        class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1"
       >
         <div class="chart">
-          <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+          <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
         </div>
       </div>
     </div>
     <div class="card-body">
       <h6 class="mb-0">{{ title }}</h6>
-      <p class="text-sm">{{ desc }}</p>
+      <p class="text-sm">
+        {{ desc }}
+      </p>
       <hr class="dark horizontal" />
       <div class="d-flex">
         <i class="material-icons text-sm my-auto me-1">schedule</i>
@@ -28,7 +30,7 @@ import Chart from "chart.js/auto";
 import DoctorApiService from "../../../services/doctor_api.service";
 
 export default {
-  name: "doctor-chart-bars",
+  name: "doctor-chart-line",
   props: {
     title: {
       type: String,
@@ -36,49 +38,73 @@ export default {
     },
     desc: {
       type: String,
-      default: "Par jour",
+      default: "Par mois",
     },
     date: {
       type: String,
-      default: "Derniére semaine",
+      default: "campaign sent 2 days ago",
     },
   },
   data() {
     return {
-      CountEveryDayAppointments: "",
+      CountEveryMonthAppointments: "",
     };
   },
   methods: {
     async Countcharts() {
-      this.CountEveryDayAppointments = await DoctorApiService.CountEveryDayAppointments();
-      console.log("days", this.CountEveryDayAppointments);
+      this.CountEveryMonthAppointments = await DoctorApiService.CountEveryMonthAppointments();
+      console.log("Months", this.CountEveryMonthAppointments);
     },
   },
-
   async mounted() {
     await this.Countcharts();
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
 
-    new Chart(ctx, {
-      type: "bar",
+    new Chart(ctx2, {
+      type: "line",
       data: {
-        labels: ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"],
+        labels: [
+          "Jan",
+          "Fev",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
         datasets: [
           {
-            label: "RDV",
-            tension: 0.4,
+            label: "Mobile apps",
+            tension: 0,
             borderWidth: 0,
-            borderRadius: 4,
-            borderSkipped: false,
-            backgroundColor: "rgba(255, 255, 255, .8)",
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(255, 255, 255, .8)",
+            pointBorderColor: "transparent",
+            borderColor: "rgba(255, 255, 255, .8)",
+            // eslint-disable-next-line no-dupe-keys
+            borderColor: "rgba(255, 255, 255, .8)",
+            // eslint-disable-next-line no-dupe-keys
+            borderWidth: 4,
+            backgroundColor: "transparent",
+            fill: true,
             data: [
-              this.CountEveryDayAppointments.monday,
-              this.CountEveryDayAppointments.tuesday,
-              this.CountEveryDayAppointments.wednesday,
-              this.CountEveryDayAppointments.thursday,
-              this.CountEveryDayAppointments.friday,
-              this.CountEveryDayAppointments.saturday,
-              0,
+              this.CountEveryMonthAppointments.january,
+              this.CountEveryMonthAppointments.february,
+              this.CountEveryMonthAppointments.march,
+              this.CountEveryMonthAppointments.april,
+              this.CountEveryMonthAppointments.may,
+              this.CountEveryMonthAppointments.june,
+              this.CountEveryMonthAppointments.july,
+              this.CountEveryMonthAppointments.august,
+              this.CountEveryMonthAppointments.september,
+              this.CountEveryMonthAppointments.october,
+              this.CountEveryMonthAppointments.november,
+              this.CountEveryMonthAppointments.december,
             ],
             maxBarThickness: 6,
           },
@@ -107,9 +133,8 @@ export default {
               color: "rgba(255, 255, 255, .2)",
             },
             ticks: {
-              suggestedMin: 0,
-              suggestedMax: 500,
-              beginAtZero: true,
+              display: true,
+              color: "#f8f9fa",
               padding: 10,
               font: {
                 size: 14,
@@ -118,17 +143,15 @@ export default {
                 style: "normal",
                 lineHeight: 2,
               },
-              color: "#fff",
             },
           },
           x: {
             grid: {
               drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
+              display: false,
+              drawOnChartArea: false,
               drawTicks: false,
               borderDash: [5, 5],
-              color: "rgba(255, 255, 255, .2)",
             },
             ticks: {
               display: true,

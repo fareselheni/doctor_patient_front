@@ -41,31 +41,9 @@ export default {
       type: String,
       default: "campaign sent 2 days ago",
     },
-    monday: {
-      type: Number,
-    },
-    tuesday: {
-      type: String,
-    },
-    wednesday: {
-      type: String,
-    },
-    thursday: {
-      type: String,
-    },
-    friday: {
-      type: String,
-    },
-    saturday: {
-      type: String,
-    },
-    day: {
-      type: Array,
-    },
   },
 
   mounted() {
-    console.log("daaaay", this.monday);
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
@@ -80,7 +58,7 @@ export default {
             borderRadius: 4,
             borderSkipped: false,
             backgroundColor: "rgba(255, 255, 255, .8)",
-            data: [this.monday.toString(), 20, 10, 22, 50, 10, 40],
+            data: [10, 20, 10, 22, 50, 10, 40],
             maxBarThickness: 6,
           },
         ],

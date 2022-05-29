@@ -75,7 +75,7 @@
 </template>
 <script>
 import ChartBars from "./components/DoctorChartBars.vue";
-import ChartLine from ".././components/ChartLine.vue";
+import ChartLine from "./components/DoctorChartLine.vue";
 import ChartLineTasks from "../components/ChartLineTasks.vue";
 import MiniCards from "../components/MiniCards.vue";
 import ProjectsCard from "../components/ProjectsCard.vue";
@@ -84,7 +84,7 @@ import DoctorApiService from "../../services/doctor_api.service";
 import SchedulerService from "../../services/scheduler.service";
 
 export default {
-  name: "dashboard-default",
+  name: "dashboard-doctor",
   components: {
     ChartBars,
     ChartLine,
