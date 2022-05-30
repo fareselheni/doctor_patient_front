@@ -53,7 +53,6 @@ export default {
   methods: {
     async Countcharts() {
       this.CountEveryMonthAppointments = await DoctorApiService.CountEveryMonthAppointments();
-      console.log("Months", this.CountEveryMonthAppointments);
     },
   },
   async mounted() {
@@ -79,7 +78,7 @@ export default {
         ],
         datasets: [
           {
-            label: "Mobile apps",
+            label: "RDV",
             tension: 0,
             borderWidth: 0,
             pointRadius: 5,

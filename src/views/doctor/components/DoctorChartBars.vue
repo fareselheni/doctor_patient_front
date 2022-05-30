@@ -51,7 +51,6 @@ export default {
   methods: {
     async Countcharts() {
       this.CountEveryDayAppointments = await DoctorApiService.CountEveryDayAppointments();
-      console.log("days", this.CountEveryDayAppointments);
     },
   },
 

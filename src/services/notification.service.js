@@ -1,4 +1,6 @@
 import axios from "axios";
+import store from "../store";
+const API_URL = "http://localhost:3000/api/notification/";
 const publicVapidKey =
   "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
 class NotificationService {
@@ -53,6 +55,21 @@ class NotificationService {
       outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
+  }
+  async allNotifications() {
+    const response = await axios.get(API_URL + "getNotifications", {
+      params: {
+        user_id: store.state.auth.user.id,
+      },
+    });
+    return response.data.allNotifications;
+  }
+  async addNotification(event) {
+    return axios.post(API_URL + "addNotification", {
+      score: event.score,
+      doctor_id: event.doctor_id,
+      user_id: store.state.auth.user.id,
+    });
   }
 }
 

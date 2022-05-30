@@ -13,13 +13,14 @@
         </div>
         <div class="submit-container">
           <button type="submit" class="btn btn-outline-success mt-2">
-            Start meeting
+            commencer la réunion
           </button>
         </div>
       </form>
 
       <p class="subtext mt-4">
-        If prompted, select "Allow" to use your camera and mic for this call
+        sélectionnez "Autoriser" pour utiliser votre caméra et votre micro pour
+        cet appel
       </p>
     </div>
   </main>
