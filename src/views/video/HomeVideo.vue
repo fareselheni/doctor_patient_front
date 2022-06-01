@@ -1,6 +1,11 @@
 <template>
   <!-- <app-header /> -->
-  <home v-if="appState === 'idle'" :joinCall="joinCall" />
+  <home
+    v-if="appState === 'idle'"
+    :joinCall="joinCall"
+    :opened="open"
+    :scheduler="schedulerEvent"
+  />
   <call
     id="call"
     v-else-if="appState === 'incall'"
@@ -14,6 +19,7 @@
 import Call from "./Call.vue";
 // import AppHeader from "./AppHeader.vue";
 import Home from "./Home.vue";
+import schedulerService from "../../services/scheduler.service";
 
 export default {
   name: "App",
@@ -27,8 +33,13 @@ export default {
       appState: "idle",
       name: "Guest",
       roomUrl: null,
+      schedulerEvent: [],
+      open: false,
     };
   },
+  // async mounted() {
+  //   this.schedulerEvent = await schedulerService.getEventByLink(this.roomUrl);
+  // },
 
   methods: {
     /**
@@ -40,7 +51,9 @@ export default {
       this.appState = "incall";
     },
     // Reset app state to return to the home screen after leaving call
-    leaveCall() {
+    async leaveCall() {
+      this.schedulerEvent = await schedulerService.getEventByLink(this.roomUrl);
+      this.open = true;
       this.appState = "idle";
     },
   },

@@ -5,7 +5,11 @@
         <div class="row">
           <div class="d-flex flex-row bd-highlight mb-3">
             <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4 py-4">
-              <v-date-picker v-model="date" :input-debounce="500">
+              <v-date-picker
+                v-model="date"
+                :input-debounce="500"
+                :min-date="new Date()"
+              >
                 <template v-slot="{ inputValue, inputEvents }">
                   <input
                     class="bg-white border px-2 py-1 rounded"

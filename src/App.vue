@@ -80,6 +80,7 @@ export default {
         if ("serviceWorker" in navigator) {
           var bodyNotification = "nouvelle demande de rendez-vous";
           notificationService.send(bodyNotification);
+          notificationService.addNotification(bodyNotification);
         }
       }
     });
@@ -90,6 +91,7 @@ export default {
         if ("serviceWorker" in navigator) {
           var bodyNotification = "votre rendez vous est confirmé";
           notificationService.send(bodyNotification);
+          notificationService.addNotification(bodyNotification);
         }
       }
     });

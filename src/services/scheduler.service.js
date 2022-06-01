@@ -30,6 +30,14 @@ class SchedulerService {
     });
     return response.data.allevents;
   }
+  async getEventByLink(link) {
+    const response = await axios.get(API_URL + "geteventByLink", {
+      params: {
+        link: link,
+      },
+    });
+    return response.data.allevents;
+  }
   async patientallConfirmedevents() {
     const response = await axios.get(API_URL + "patient/getall", {
       params: {

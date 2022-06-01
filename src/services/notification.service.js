@@ -66,8 +66,8 @@ class NotificationService {
   }
   async addNotification(event) {
     return axios.post(API_URL + "addNotification", {
-      score: event.score,
-      doctor_id: event.doctor_id,
+      title: "notification",
+      body: event,
       user_id: store.state.auth.user.id,
     });
   }

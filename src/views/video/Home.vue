@@ -24,15 +24,107 @@
       </p>
     </div>
   </main>
+  <!-- Button trigger modal -->
+  <button
+    id="toggleModal"
+    type="button"
+    class="btn btn-primary invisible"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Notez Dr. {{ ratingDoctorName }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <Star-rating
+              @update:rating="setRating"
+              :border-width="1"
+              :star-size="18"
+              :show-rating="false"
+              :animate="true"
+              :star-points="[
+                23,
+                2,
+                14,
+                17,
+                0,
+                19,
+                10,
+                34,
+                7,
+                50,
+                23,
+                43,
+                38,
+                50,
+                36,
+                34,
+                46,
+                19,
+                31,
+                17,
+              ]"
+              :active-on-click="true"
+              :clearable="true"
+              :padding="3"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import RatingService from "../../services/rating.service";
+import StarRating from "vue-star-rating";
 export default {
   name: "Home",
   props: {
     joinCall: {
       type: Function,
     },
+    opened: {
+      type: Boolean,
+    },
+    scheduler: {
+      type: Array,
+    },
+  },
+  components: {
+    StarRating,
   },
   data() {
     return {
@@ -41,6 +133,8 @@ export default {
         " " +
         this.$store.state.auth.user.lastname,
       url: "",
+      rating: 0,
+      ratingDoctorName: "",
     };
   },
   methods: {
@@ -48,6 +142,36 @@ export default {
     joinWithName() {
       this.joinCall(this.name, this.url);
     },
+    async setRating(rating) {
+      this.rating = rating;
+      const event = {
+        score: this.rating,
+        doctor_id: this.scheduler[0].doctor_id,
+      };
+      await RatingService.addnewRating(event);
+    },
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showToPatient() {
+      if (this.currentUser && this.currentUser["roles"]) {
+        return this.currentUser["roles"].includes("ROLE_PATIENT");
+      }
+      return false;
+    },
+    openModal() {
+      return this.opened;
+    },
+  },
+  mounted() {
+    if (this.openModal && this.showToPatient) {
+      var toggleButton = document.getElementById("toggleModal");
+      toggleButton.click();
+      this.ratingDoctorName = this.scheduler[0].doctor_name;
+      console.log("sched", this.scheduler[0].doctor_name);
+    }
   },
 };
 </script>
@@ -107,5 +231,8 @@ main {
 .subtext {
   font-size: 12px;
   color: #6b7785;
+}
+i.icon-yellow {
+  color: rgb(255, 196, 0);
 }
 </style>
