@@ -26,13 +26,13 @@
   </main>
   <!-- Button trigger modal -->
   <button
-    id="toggleModal"
+    id="toggleModalPatient"
     type="button"
     class="btn btn-primary invisible"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
-    Launch demo modal
+    Launch patient modal
   </button>
 
   <!-- Modal -->
@@ -105,11 +105,61 @@
       </div>
     </div>
   </div>
+  <!-- DOCTOR MODAL -->
+  <!-- Button trigger modal -->
+  <button
+    id="toggleModalDoctor"
+    type="button"
+    class="btn btn-primary invisible"
+    data-bs-toggle="modal"
+    data-bs-target="#doctorModal"
+  >
+    Launch doctor modal
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="doctorModal"
+    tabindex="-1"
+    aria-labelledby="doctorModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="doctorModalLabel">
+            Clôturer ce rendez-vous
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div>Doctoor</div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import RatingService from "../../services/rating.service";
 import StarRating from "vue-star-rating";
+import schedulerService from "../../services/scheduler.service";
 export default {
   name: "Home",
   props: {
@@ -139,8 +189,15 @@ export default {
   },
   methods: {
     // Submit form with prop method defined in App.vue
-    joinWithName() {
+    async joinWithName() {
       this.joinCall(this.name, this.url);
+      const url = await schedulerService.getEventByLink(this.url);
+      const event = {
+        _id: url[0]._id,
+        status: "cloturé",
+      };
+      await schedulerService.updateevent(event);
+      console.log("joineedd", url);
     },
     async setRating(rating) {
       this.rating = rating;
@@ -161,16 +218,25 @@ export default {
       }
       return false;
     },
+    showToDoctor() {
+      if (this.currentUser && this.currentUser["roles"]) {
+        return this.currentUser["roles"].includes("ROLE_DOCTOR");
+      }
+      return false;
+    },
     openModal() {
       return this.opened;
     },
   },
   mounted() {
     if (this.openModal && this.showToPatient) {
-      var toggleButton = document.getElementById("toggleModal");
-      toggleButton.click();
+      var PatienttoggleButton = document.getElementById("toggleModalPatient");
+      PatienttoggleButton.click();
       this.ratingDoctorName = this.scheduler[0].doctor_name;
-      console.log("sched", this.scheduler[0].doctor_name);
+    }
+    if (this.openModal && this.showToDoctor) {
+      var DoctortoggleButton = document.getElementById("toggleModalDoctor");
+      DoctortoggleButton.click();
     }
   },
 };

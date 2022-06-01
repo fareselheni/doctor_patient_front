@@ -14,14 +14,18 @@ class SchedulerService {
       typeRDV: event.typeRDV,
     });
   }
-  // async updateevent(event) {
-  //   return axios.put(API_URL + "updateevent", {
-  //     _id: event._id,
-  //     start_date: event.start_date,
-  //     end_date: event.end_date,
-  //     text: event.text,
-  //   });
-  // }
+  async updateevent(event) {
+    return axios.put(API_URL + "updateevent", {
+      _id: event._id,
+      start_date: event.start_date,
+      end_date: event.end_date,
+      text: event.text,
+      status: event.status,
+      // params: {
+      //   _id: event._id,
+      // },
+    });
+  }
   async allevents() {
     const response = await axios.get(API_URL + "getall", {
       params: {
