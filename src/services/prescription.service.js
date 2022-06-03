@@ -8,6 +8,7 @@ class PrescriptionService {
       date: event.date,
       doctor_id: store.state.auth.user.id,
       user_id: event.user_id,
+      scheduler_id: event.scheduler_id,
     });
   }
   async getPatientPrescriptions() {

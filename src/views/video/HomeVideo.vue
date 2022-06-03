@@ -5,6 +5,7 @@
     :joinCall="joinCall"
     :opened="open"
     :scheduler="schedulerEvent"
+    :participantLength="participantsLength"
   />
   <call
     id="call"
@@ -12,6 +13,7 @@
     :leaveCall="leaveCall"
     :name="name"
     :roomUrl="roomUrl"
+    @load="onLoadChild"
   />
 </template>
 
@@ -35,6 +37,7 @@ export default {
       roomUrl: null,
       schedulerEvent: [],
       open: false,
+      participantsLength: false,
     };
   },
   // async mounted() {
@@ -55,6 +58,12 @@ export default {
       this.schedulerEvent = await schedulerService.getEventByLink(this.roomUrl);
       this.open = true;
       this.appState = "idle";
+    },
+    onLoadChild(value) {
+      if (value > 1) {
+        this.participantsLength = true;
+      }
+      //console.log("ggb", this.participantsLength); // someValue
     },
   },
 };

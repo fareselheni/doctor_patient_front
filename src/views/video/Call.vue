@@ -145,6 +145,7 @@ export default {
         this.screen = null;
       }
       this.loading = false;
+      this.$emit("load", this.count);
     },
     // Add chat message to local message array
     updateMessages(e) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex d-flex justify-content-around pt-4">
+  <div class="d-flex justify-content-around pt-4">
     <div id="form" class="p-4">
       <h3 class="mt-2">Générer votre ordonnance</h3>
       <p class="mt-2">Service de visioconférence professionnel sécurisé</p>
@@ -112,10 +112,6 @@ export default {
   position: initial;
   background-image: url("../../assets/img/prescription_img.jpg");
 }
-/* #form {
-  height: 400px;
-  width: 377px;
-} */
 
 #patient_name,
 #date,

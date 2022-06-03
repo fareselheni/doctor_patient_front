@@ -6,13 +6,13 @@
 
       <form class="join-form" @submit="joinWithName">
         <div class="name-container">
-          <label for="name">Your name</label>
+          <label for="name">Nom et Prénom</label>
           <input type="text" id="name" required v-model="name" disabled />
           <label for="name">Daily URL</label>
           <input type="text" id="url" required v-model="url" />
         </div>
         <div class="submit-container">
-          <button type="submit" class="btn btn-outline-success mt-2">
+          <button type="submit" class="btn btn-outline-success btn-sm mt-3">
             commencer la réunion
           </button>
         </div>
@@ -128,9 +128,9 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="doctorModalLabel">
+          <h3 class="modal-title" id="doctorModalLabel">
             Clôturer ce rendez-vous
-          </h5>
+          </h3>
           <button
             type="button"
             class="btn-close"
@@ -139,17 +139,71 @@
           ></button>
         </div>
         <div class="modal-body">
-          <div>Doctoor</div>
+          <div class="row justify-content-around">
+            <div id="form" class="p-2">
+              <h5 class="mt-2">Générer une ordonnance</h5>
+              <p class="mt-2">Pour {{ this.patientName }}</p>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label pt-2"
+                  >Liste des médicaments</label
+                >
+                <textarea
+                  class="form-control border border-dark"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  v-model="drugs"
+                ></textarea>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button
+                  type="button"
+                  class="btn btn-outline-success btn-sm"
+                  @click="voir"
+                >
+                  Prévisualiser
+                  <i class="material-icons-round opacity-10 fs-5">filter </i>
+                </button>
+              </div>
+            </div>
+            <div id="withbutton" class="d-flex flex-column d-none p-2">
+              <div id="maindiv" ref="document">
+                <div class="d-flex flex-column">
+                  <label id="patient_name" class="pt-6 ps-5"
+                    >nom du patient</label
+                  >
+                  <label id="date" class="ps-12">{{ date }}</label>
+                  <label id="drug" class="ps-3">Liste des médicaments</label>
+                </div>
+              </div>
+              <div class="w-50 pt-2 m-auto d-flex justify-content-center">
+                <button
+                  class="btn btn-outline-success btn-sm"
+                  @click="exportToPDF"
+                >
+                  <i class="material-icons-round opacity-10 fs-5"
+                    >file_download
+                  </i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-outline-primary btn-sm"
             data-bs-dismiss="modal"
           >
-            Close
+            <i class="material-icons-round opacity-10 fs-5">close </i>
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button
+            type="button"
+            class="btn btn-outline-success btn-sm"
+            @click="sendToPatient"
+          >
+            Envoyer
+            <i class="material-icons-round opacity-10 fs-5">send </i>
+          </button>
         </div>
       </div>
     </div>
@@ -157,6 +211,7 @@
 </template>
 
 <script>
+import PrescriptionService from "../../services/prescription.service";
 import RatingService from "../../services/rating.service";
 import StarRating from "vue-star-rating";
 import schedulerService from "../../services/scheduler.service";
@@ -172,6 +227,9 @@ export default {
     scheduler: {
       type: Array,
     },
+    participantLength: {
+      type: Boolean,
+    },
   },
   components: {
     StarRating,
@@ -185,6 +243,10 @@ export default {
       url: "",
       rating: 0,
       ratingDoctorName: "",
+      patientName: "",
+      drugs: "",
+      date: new Date().toLocaleDateString(),
+      schedulerId: "",
     };
   },
   methods: {
@@ -197,7 +259,6 @@ export default {
         status: "cloturé",
       };
       await schedulerService.updateevent(event);
-      console.log("joineedd", url);
     },
     async setRating(rating) {
       this.rating = rating;
@@ -206,6 +267,28 @@ export default {
         doctor_id: this.scheduler[0].doctor_id,
       };
       await RatingService.addnewRating(event);
+    },
+    async voir() {
+      document.getElementById("drug").innerHTML = this.drugs;
+      document.getElementById("patient_name").innerHTML = this.patientName;
+      if (
+        document.getElementById("withbutton").className ==
+        "d-flex flex-column d-none"
+      ) {
+        document.getElementById("withbutton").className = "d-flex flex-column";
+      } else {
+        document.getElementById("withbutton").className =
+          "d-flex flex-column d-none";
+      }
+    },
+    async sendToPatient() {
+      const event = {
+        scheduler_id: this.schedulerId,
+        drugs: this.drugs,
+        date: this.date,
+        user_id: this.scheduler[0].user_id,
+      };
+      await PrescriptionService.addnewPrescription(event);
     },
   },
   computed: {
@@ -229,14 +312,19 @@ export default {
     },
   },
   mounted() {
-    if (this.openModal && this.showToPatient) {
-      var PatienttoggleButton = document.getElementById("toggleModalPatient");
-      PatienttoggleButton.click();
-      this.ratingDoctorName = this.scheduler[0].doctor_name;
-    }
-    if (this.openModal && this.showToDoctor) {
-      var DoctortoggleButton = document.getElementById("toggleModalDoctor");
-      DoctortoggleButton.click();
+    if (this.participantLength == true) {
+      if (this.openModal && this.showToPatient) {
+        var PatienttoggleButton = document.getElementById("toggleModalPatient");
+        PatienttoggleButton.click();
+        this.ratingDoctorName = this.scheduler[0].doctor_name;
+      }
+      if (this.openModal && this.showToDoctor) {
+        var DoctortoggleButton = document.getElementById("toggleModalDoctor");
+        DoctortoggleButton.click();
+        this.patientName = this.scheduler[0].user_name;
+        this.schedulerId = this.scheduler[0]._id;
+      }
+      console.log("LENGTH", this.participantLength);
     }
   },
 };
@@ -300,5 +388,21 @@ main {
 }
 i.icon-yellow {
   color: rgb(255, 196, 0);
+}
+@import url("http://fonts.cdnfonts.com/css/over-the-rainbow");
+#maindiv {
+  height: 400px;
+  width: 377px;
+  position: initial;
+  background-image: url("../../assets/img/prescription_img.jpg");
+}
+
+#patient_name,
+#date,
+#drug {
+  white-space: pre-wrap;
+  font-family: "Over the Rainbow", sans-serif;
+  color: #002b59;
+  font-weight: bold;
 }
 </style>
