@@ -7,7 +7,6 @@
       :ref="setItemRef"
     >
       <div id="maindiv">
-        <!-- <label id="labelz" class="pt-7 ps-12">ddddd</label> -->
         <div class="d-flex flex-column">
           <label id="patient_name" class="pt-6 ps-5">{{
             pres.user_name

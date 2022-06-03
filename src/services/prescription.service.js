@@ -19,6 +19,15 @@ class PrescriptionService {
     });
     return response.data.allevents;
   }
+  async getPatientPrescriptionsBySchId(scheduler_id) {
+    const response = await axios.get(API_URL + "patient/getBySchId", {
+      params: {
+        _id: store.state.auth.user.id,
+        scheduler_id: scheduler_id,
+      },
+    });
+    return response.data.allevents;
+  }
   async deleteevent(ev) {
     return axios.delete(API_URL + "delete/" + ev._id).then((response) => {
       console.log(response);
