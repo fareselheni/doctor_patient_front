@@ -253,12 +253,8 @@ export default {
     // Submit form with prop method defined in App.vue
     async joinWithName() {
       this.joinCall(this.name, this.url);
-      const url = await schedulerService.getEventByLink(this.url);
-      const event = {
-        _id: url[0]._id,
-        status: "cloturé",
-      };
-      await schedulerService.updateevent(event);
+      localStorage.setItem("MeetUrl", this.url);
+      // console.log("INSIDE JOIN", this.eventtoUpdate);
     },
     async setRating(rating) {
       this.rating = rating;
@@ -311,7 +307,7 @@ export default {
       return this.opened;
     },
   },
-  mounted() {
+  async mounted() {
     if (this.participantLength == true) {
       if (this.openModal && this.showToPatient) {
         var PatienttoggleButton = document.getElementById("toggleModalPatient");
@@ -324,7 +320,14 @@ export default {
         this.patientName = this.scheduler[0].user_name;
         this.schedulerId = this.scheduler[0]._id;
       }
-      console.log("LENGTH", this.participantLength);
+      const url = await schedulerService.getEventByLink(
+        localStorage.getItem("MeetUrl")
+      );
+      const eventtoUpdate = {
+        _id: url[0]._id,
+        status: "cloturé",
+      };
+      await schedulerService.updateevent(eventtoUpdate);
     }
   },
 };

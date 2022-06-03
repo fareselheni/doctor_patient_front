@@ -1,80 +1,60 @@
 <template>
-  <div class="p-4 d-flex flex-row flex-wrap justify-content-around">
-    <div
-      v-for="(pres, index) in mesOrdonnances"
-      v-bind:key="pres"
-      class="border border-4 p-4 m-4"
-      :ref="setItemRef"
-    >
-      <div id="maindiv">
-        <!-- <label id="labelz" class="pt-7 ps-12">ddddd</label> -->
-        <div class="d-flex flex-column">
-          <label id="patient_name" class="pt-6 ps-5">{{
-            pres.user_name
-          }}</label>
-          <label id="date" class="ps-12">{{ pres.date }}</label>
-          <label id="drug" class="ps-3">{{ pres.drugs }}</label>
-        </div>
-      </div>
-      <div class="pt-2 m-auto d-flex justify-content-center">
-        <div class="d-flex flex-row">
-          <div class="mx-2">
-            <button @click="exportToPDF(index)" class="btn btn-success">
-              Telecharger
-            </button>
+  <div id="card" class="card">
+    <div class="card-header pb-0 px-3">
+      <h6 class="mb-0">Billing Information</h6>
+    </div>
+    <div class="card-body pt-4 p-3">
+      <ul class="list-group" v-for="dt in mesRDVcloturé" :key="dt._id">
+        <li
+          class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-200 border-radius-lg"
+        >
+          <div class="d-flex flex-column">
+            <h6 class="mb-3 text-sm">{{ dt.doctor_name }}</h6>
+            <span class="mb-2 text-xs">
+              Date:
+              <span class="text-dark font-weight-bold ms-sm-2">{{
+                dt.start_date.split(/[T ,]+/)[0]
+              }}</span>
+            </span>
+            <span class="mb-2 text-xs">
+              Email Address:
+              <span class="text-dark ms-sm-2 font-weight-bold"
+                >oliver@burrito.com</span
+              >
+            </span>
           </div>
-          <div class="mx-2">
-            <button @click="deletePrescription(pres)" class="btn btn-danger">
-              Supprimer
-            </button>
+          <div class="ms-auto text-end">
+            <a
+              class="btn btn-link text-danger text-gradient px-3 mb-0"
+              href="javascript:;"
+            >
+              <i class="far fa-trash-alt me-2" aria-hidden="true"></i>Delete
+            </a>
+            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;">
+              <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i
+              >Edit
+            </a>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import PrescriptionService from "../../services/prescription.service";
-import html2pdf from "html2pdf.js";
+import SchedulerService from "../../services/scheduler.service";
 export default {
   name: "myPrescriptions",
   data() {
     return {
-      mesOrdonnances: [],
-      itemRefs: [],
+      mesRDVcloturé: [],
     };
   },
   async mounted() {
-    this.mesOrdonnances = await PrescriptionService.getPatientPrescriptions();
+    this.mesRDVcloturé = await SchedulerService.patientallCLosedevents();
+    console.log(this.mesRDVcloturé);
   },
-  methods: {
-    exportToPDF(index) {
-      // console.log(this.$refs);
-      html2pdf(this.itemRefs[index], {
-        margin: 1,
-        filename: "Ordonnance.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { dpi: 192, letterRendering: true },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-      });
-    },
-    setItemRef(el) {
-      if (el) {
-        this.itemRefs.push(el);
-      }
-    },
-    async deletePrescription(ev) {
-      await PrescriptionService.deleteevent(ev);
-      this.mesOrdonnances = await PrescriptionService.getPatientPrescriptions();
-    },
-  },
-  beforeUpdate() {
-    this.itemRefs = [];
-  },
-  updated() {
-    console.log(this.itemRefs);
-  },
+  methods: {},
 };
 </script>
 
@@ -98,5 +78,8 @@ export default {
   font-family: "Over the Rainbow", sans-serif;
   color: #002b59;
   font-weight: bold;
+}
+#card {
+  min-height: 450px;
 }
 </style>
