@@ -17,7 +17,6 @@ import mesRendezVousConfirmé from "../views/patient/mesRendezVousConfirmé.vue"
 import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 import HomeVideo from "../views/video/HomeVideo.vue";
 import doctorDashboard from "../views/doctor/doctorDashboard.vue";
-import generatePrescription from "../views/doctor/generatePrescription.vue";
 import myPrescriptions from "../views/patient/myPrescriptions.vue";
 
 // const doctor = this.$store.state.auth.user.roles[0];
@@ -34,11 +33,6 @@ const routes = [
     path: "/doctorDashboard",
     name: "doctorDashboard",
     component: doctorDashboard,
-  },
-  {
-    path: "/generatePrescription",
-    name: "generatePrescription",
-    component: generatePrescription,
   },
   {
     path: "/myPrescriptions",

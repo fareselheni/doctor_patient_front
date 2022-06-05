@@ -99,6 +99,7 @@
 <script>
 import SchedulerService from "../../services/scheduler.service";
 import prescriptionService from "../../services/prescription.service";
+import html2pdf from "html2pdf.js";
 export default {
   name: "myPrescriptions",
   data() {
@@ -117,6 +118,15 @@ export default {
         id
       );
       console.log("ggg", this.prescription);
+    },
+    exportToPDF() {
+      html2pdf(this.$refs.document, {
+        margin: 1,
+        filename: "Ordonnance.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { dpi: 192, letterRendering: true },
+        jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
+      });
     },
   },
 };
