@@ -34,10 +34,10 @@
               <div
                 class="mt-7 col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5"
               >
-                <div class="card card-plain">
+                <div class="card card-plain bg-gray-200 border border-3">
                   <div class="pb-0 card-header bg-transparent mb-4">
-                    <h4 class="font-weight-bolder">Sign Up</h4>
-                    <p class="mb-0">Enter your informations to register</p>
+                    <h4 class="font-weight-bolder">S'inscrire</h4>
+                    <p class="mb-0">Entrez vos informations</p>
                   </div>
                   <div class="card-body">
                     <Form
@@ -47,9 +47,10 @@
                     >
                       <div class="mb-3">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="text"
-                          placeholder="FirstName"
+                          as="input"
+                          placeholder="Prénom"
                           name="firstname"
                           style="text-align: center"
                         />
@@ -61,9 +62,9 @@
                       </div>
                       <div class="mb-3">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="text"
-                          placeholder="LastName"
+                          placeholder="Nom"
                           name="lastname"
                           style="text-align: center"
                         />
@@ -75,7 +76,7 @@
                       </div>
                       <div class="mb-3">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="email"
                           placeholder="Email"
                           name="email"
@@ -89,9 +90,9 @@
                       </div>
                       <div class="mb-3">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="password"
-                          placeholder="Password"
+                          placeholder="Mot de Passe"
                           name="password"
                           style="text-align: center"
                         />
@@ -103,9 +104,9 @@
                       </div>
                       <div class="mb-3">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="text"
-                          placeholder="Phone Number"
+                          placeholder="Num Telephone"
                           name="phone_number"
                           style="text-align: center"
                         />
@@ -117,7 +118,7 @@
                       </div>
                       <div class="mb-3">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="text"
                           placeholder="Adresse"
                           name="adresse"
@@ -130,9 +131,22 @@
                         />
                       </div>
                       <div class="mb-3">
+                        <v-date-picker v-model="birthdate" mode="date" is24hr>
+                          <template v-slot="{ inputValue, inputEvents }">
+                            <input
+                              class="form-control px-2 py-1 border border-1 bg-white focus:outline-none focus:border-blue-300"
+                              :value="inputValue"
+                              v-on="inputEvents"
+                              placeholder="Date de naissance"
+                              style="text-align: center"
+                            />
+                          </template>
+                        </v-date-picker>
+                      </div>
+                      <div class="mb-3">
                         <div class="container mt-3">
                           <div class="card bg-white">
-                            <img style="" :src="image" alt="" />
+                            <!-- <img style="" :src="image" alt="" /> -->
                             <Field
                               name="image"
                               @change="handleFileUpload"
@@ -149,7 +163,7 @@
                         >
                           <div class="form-check form-check-inline mb-0 me-4">
                             <Field
-                              class="form-check-input border border-secondary"
+                              class="form-check-input border border-secondary bg-white"
                               type="radio"
                               name="gender"
                               id="femaleGender"
@@ -162,7 +176,7 @@
 
                           <div class="form-check form-check-inline mb-0 me-4">
                             <Field
-                              class="form-check-input border border-secondary"
+                              class="form-check-input border border-secondary bg-white"
                               type="radio"
                               name="gender"
                               id="maleGender"
@@ -186,7 +200,7 @@
                         >
                           <div class="form-check form-check-inline mb-0 me-4">
                             <Field
-                              class="form-check-input border border-secondary"
+                              class="form-check-input border border-secondary bg-white"
                               type="radio"
                               name="roles"
                               id="doctor"
@@ -201,7 +215,7 @@
 
                           <div class="form-check form-check-inline mb-0 me-4">
                             <Field
-                              class="form-check-input border border-secondary"
+                              class="form-check-input border border-secondary bg-white"
                               type="radio"
                               name="roles"
                               id="patient"
@@ -225,7 +239,7 @@
                         <Field
                           name="specialite"
                           as="select"
-                          class="form-select text-center"
+                          class="form-select text-center bg-white"
                         >
                           <option value="" disabled>Spécialité</option>
                           <option
@@ -241,7 +255,7 @@
                         <Field
                           name="gouvernorat"
                           as="select"
-                          class="form-select text-center"
+                          class="form-select text-center bg-white"
                         >
                           <option value="" disabled>gouvernorat</option>
                           <option
@@ -255,7 +269,7 @@
                       </div>
                       <div class="mb-3" v-if="selectedrole === 'doctor'">
                         <Field
-                          class="form-control input-md border border-secondary"
+                          class="form-control input-md border border-1 bg-white"
                           type="text"
                           placeholder="numero_inscription_cnom"
                           name="numero_inscription_cnom"
@@ -272,11 +286,11 @@
                         class="font-weight-light"
                         checked
                       >
-                        I agree the
+                        J'accepte
                         <a
                           href="../../../pages/privacy.html"
                           class="text-dark font-weight-bolder"
-                          >Terms and Conditions</a
+                          >les termes et conditions</a
                         >
                       </vmd-checkbox>
                       <div class="text-center">
@@ -290,18 +304,18 @@
                             v-show="loading"
                             class="spinner-border spinner-border-sm"
                           ></span>
-                          Sign Up
+                          S'inscrire
                         </button>
                       </div>
                     </Form>
                   </div>
                   <div class="px-1 pt-0 text-center card-footer px-lg-2">
                     <p class="mx-auto mb-4 text-sm">
-                      Don't have an account?
+                      Vous avez déjà un compte?
                       <router-link
                         :to="{ name: 'SignIn' }"
                         class="text-success text-gradient font-weight-bold"
-                        >Sign In</router-link
+                        >S'identifier</router-link
                       >
                     </p>
                   </div>
@@ -381,6 +395,7 @@ export default {
       allspecialites: [],
       allgouvernorats: [],
       image: "",
+      birthdate: "",
     };
   },
   watch: {

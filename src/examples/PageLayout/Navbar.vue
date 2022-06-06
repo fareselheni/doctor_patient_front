@@ -11,7 +11,7 @@
         v-bind="$attrs"
         :class="isBlur ? 'text-dark' : 'text-white'"
       >
-        Home
+        Doctor2Home
       </router-link>
       <button
         class="navbar-toggler shadow-none ms-2"
@@ -41,7 +41,7 @@
                 aria-hidden="true"
                 :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
-              Dashboard
+              Tableau de bord
             </router-link>
           </li>
           <li class="nav-item">
@@ -51,7 +51,7 @@
                 aria-hidden="true"
                 :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
-              Profile
+              Profil
             </router-link>
           </li>
           <li class="nav-item">
@@ -61,7 +61,7 @@
                 aria-hidden="true"
                 :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
-              Sign Up
+              S'inscrire
             </router-link>
           </li>
           <li class="nav-item">
@@ -71,11 +71,11 @@
                 aria-hidden="true"
                 :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
-              Sign In
+              Se connecter
             </router-link>
           </li>
         </ul>
-        <ul class="navbar-nav d-lg-block d-none">
+        <!-- <ul class="navbar-nav d-lg-block d-none">
           <li class="nav-item">
             <a
               href="https://www.creative-tim.com/product/vue-material-dashboard-2"
@@ -83,7 +83,7 @@
               >Free download</a
             >
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </nav>
