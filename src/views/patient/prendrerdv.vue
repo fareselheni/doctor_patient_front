@@ -80,19 +80,35 @@
                   </div>
                 </td>
                 <td class="col-lg-3 col-md-2 col-sm-1">
-                  <div class="text-center">
-                    <button
-                      :disabled="loading"
-                      type="submit"
-                      class="btn btn-outline-success w-50"
-                      @click="addPre_app(dt), (snackbar = 'success')"
-                    >
-                      <span
-                        v-show="loading"
-                        class="spinner-border spinner-border-sm"
-                      ></span>
-                      Reserver
-                    </button>
+                  <div class="d-flex flex-row justify-content-around">
+                    <div class="text-center">
+                      <button
+                        :disabled="loading"
+                        type="submit"
+                        class="btn btn-outline-success"
+                        @click="addPaiement(dt), (snackbar = 'success')"
+                      >
+                        <span
+                          v-show="loading"
+                          class="spinner-border spinner-border-sm"
+                        ></span>
+                        Payer
+                      </button>
+                    </div>
+                    <div class="text-center">
+                      <button
+                        :disabled="loading"
+                        type="submit"
+                        class="btn btn-outline-success"
+                        @click="addPre_app(dt), (snackbar = 'success')"
+                      >
+                        <span
+                          v-show="loading"
+                          class="spinner-border spinner-border-sm"
+                        ></span>
+                        Reserver
+                      </button>
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -134,6 +150,7 @@ import socket from "../../socket";
 import axios from "axios";
 import timedispoService from "../../services/timedispo.service";
 import preAppService from "../../services/preApp.service";
+import paiementService from "../../services/paiement.service";
 export default {
   name: "prendrerdv",
   components: {
@@ -152,7 +169,6 @@ export default {
     this.existingPreApp = await preAppService.checkExistingPreApp(
       this.$route.params.id
     );
-    console.log(this.existingPreApp);
   },
   computed: {
     changedDate() {
@@ -180,7 +196,7 @@ export default {
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       if (this.existingPreApp >= 1) {
-        console.log("canoooooooot");
+        console.log("cannot");
       } else {
         await axios.get("http://localhost:3000/send", {
           params: {
@@ -200,6 +216,21 @@ export default {
       } else {
         this.typeRDV = "visio";
       }
+    },
+    async addPaiement(ev) {
+      const paiment = await paiementService.addnewPaiement(ev);
+      console.log("paiement", paiment.data);
+      await this.delay(5000);
+      const check = await paiementService.getPaiementDetails(
+        paiment.data.result.payment_id
+      );
+      console.log("check", check);
+      window.open(paiment.data.result.link);
+    },
+    async delay(time) {
+      return new Promise(function (resolve) {
+        setTimeout(resolve, time);
+      });
     },
   },
 };

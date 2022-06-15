@@ -18,6 +18,8 @@ import toConfirmRendezVous from "../views/doctor/toConfirmRendezVous.vue";
 import HomeVideo from "../views/video/HomeVideo.vue";
 import doctorDashboard from "../views/doctor/doctorDashboard.vue";
 import myPrescriptions from "../views/patient/myPrescriptions.vue";
+import paiementSuccess from "../views/paiement/success.vue";
+import paiementFail from "../views/paiement/fail.vue";
 
 // const doctor = this.$store.state.auth.user.roles[0];
 const routes = [
@@ -33,6 +35,16 @@ const routes = [
     path: "/doctorDashboard",
     name: "doctorDashboard",
     component: doctorDashboard,
+  },
+  {
+    path: "/paiementSuccess",
+    name: "paiementSuccess",
+    component: paiementSuccess,
+  },
+  {
+    path: "/paiementFail",
+    name: "paiementFail",
+    component: paiementFail,
   },
   {
     path: "/myPrescriptions",

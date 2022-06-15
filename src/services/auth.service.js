@@ -24,7 +24,6 @@ class AuthService {
       lastname: user.lastname,
       email: user.email,
       password: user.password,
-      // roles:["doctor"]
       roles: [user.roles],
       gender: user.gender,
       phone_number: user.phone_number,
@@ -33,6 +32,7 @@ class AuthService {
       gouvernorat: user.gouvernorat,
       numero_inscription_cnom: user.numero_inscription_cnom,
       image: user.image,
+      birthdate: user.birthdate,
     });
   }
 }

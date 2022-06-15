@@ -133,7 +133,7 @@ export default {
     scheduler.init(this.$refs.scheduler, new Date(), "week");
     // eslint-disable-next-line no-undef
     scheduler.parse(this.$props.events);
-    // console.log("evvvvvv", this.$props.events);
+    console.log("evvvvvv", this.$props.events);
   },
 };
 </script>

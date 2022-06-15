@@ -435,6 +435,7 @@ export default {
         gouvernorat: user.gouvernorat,
         numero_inscription_cnom: user.numero_inscription_cnom,
         image: this.image,
+        birthdate: this.birthdate,
       };
       this.message = "";
       this.successful = false;
