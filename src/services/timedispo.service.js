@@ -9,6 +9,17 @@ class TimedispoService {
       doctor_id: store.state.auth.user.id,
     });
   }
+  async updatetimedispo(event) {
+    return axios.put(API_URL + "updatetimedispo/" + event.id, {
+      paiement_id: event.paiement_id,
+    });
+  }
+  async updateByPaiementId(event) {
+    return axios.put(API_URL + "updateByPaiementId", {
+      paiement_id: event.paiement_id,
+      payed: event.payed,
+    });
+  }
   async allevents() {
     const response = await axios.get(API_URL + "getall", {
       params: {

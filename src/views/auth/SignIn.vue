@@ -226,7 +226,6 @@ export default {
       //   email: this.email,
       //   password: this.password,
       // };
-      console.log(user);
       this.loading = true;
       this.$store.dispatch("auth/login", user).then(
         () => {

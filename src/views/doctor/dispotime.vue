@@ -181,7 +181,6 @@ export default {
         end_date: this.range.end.toISOString(),
       };
       await TimedispoService.addtimedispo(timedispo);
-      console.log("gg", timedispo);
       this.mesRdvs = await TimedispoService.doctorallTimeDispoevents();
     },
     async deleteevent(ev) {

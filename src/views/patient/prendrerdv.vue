@@ -83,7 +83,7 @@
                   <div class="d-flex flex-row justify-content-around">
                     <div class="text-center">
                       <button
-                        :disabled="loading"
+                        :disabled="loading || dt.payed == true"
                         type="submit"
                         class="btn btn-outline-success"
                         @click="addPaiement(dt), (snackbar = 'success')"
@@ -97,7 +97,7 @@
                     </div>
                     <div class="text-center">
                       <button
-                        :disabled="loading"
+                        :disabled="loading || dt.payed == false"
                         type="submit"
                         class="btn btn-outline-success"
                         @click="addPre_app(dt), (snackbar = 'success')"
@@ -188,11 +188,14 @@ export default {
         start_date: this.date.toISOString().split(/[T ,]+/)[0],
       };
       this.doctimedispo = await timedispoService.getDoctorTimeDispo(ev);
+      console.log("doctime", this.doctimedispo);
     },
     closeSnackbar() {
       this.snackbar = null;
     },
     async addPre_app(ev) {
+      const check = await paiementService.getPaiementDetails(ev.paiement_id);
+      console.log("check", check);
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       if (this.existingPreApp >= 1) {
@@ -225,6 +228,11 @@ export default {
         paiment.data.result.payment_id
       );
       console.log("check", check);
+      const eventToUpdate = {
+        id: ev._id,
+        paiement_id: paiment.data.result.payment_id,
+      };
+      await timedispoService.updatetimedispo(eventToUpdate);
       window.open(paiment.data.result.link);
     },
     async delay(time) {
