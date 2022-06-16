@@ -33,6 +33,7 @@ class AuthService {
       numero_inscription_cnom: user.numero_inscription_cnom,
       image: user.image,
       birthdate: user.birthdate,
+      prixConsultation: user.prixConsultation,
     });
   }
 }

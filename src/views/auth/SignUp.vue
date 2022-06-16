@@ -281,6 +281,20 @@
                           style="color: red"
                         />
                       </div>
+                      <div class="mb-3" v-if="selectedrole === 'doctor'">
+                        <Field
+                          class="form-control input-md border border-1 bg-white"
+                          type="text"
+                          placeholder="prixConsultation"
+                          name="prixConsultation"
+                          style="text-align: center"
+                        />
+                        <ErrorMessage
+                          name="prixConsultation"
+                          class="error-feedback mx-5"
+                          style="color: red"
+                        />
+                      </div>
                       <vmd-checkbox
                         id="flexCheckDefault"
                         class="font-weight-light"
@@ -384,6 +398,7 @@ export default {
       specialite: yup.string(),
       gouvernorat: yup.string(),
       numero_inscription_cnom: yup.string(),
+      prixConsultation: yup.string(),
       // image: yup.string(),
     });
     return {
@@ -436,6 +451,7 @@ export default {
         numero_inscription_cnom: user.numero_inscription_cnom,
         image: this.image,
         birthdate: this.birthdate,
+        prixConsultation: user.prixConsultation,
       };
       this.message = "";
       this.successful = false;

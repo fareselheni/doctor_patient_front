@@ -9,21 +9,24 @@
     <div class="shadow-lg card">
       <div class="pt-3 pb-0 bg-transparent card-header">
         <div class="float-start">
-          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
-          <p>See our dashboard options.</p>
+          <div class="mt-4 float-end" @click="toggle">
+            <button
+              class="p-0 btn btn-link text-dark fixed-plugin-close-button"
+            >
+              <i class="material-icons">clear</i>
+            </button>
+          </div>
+          <h5 class="mt-3 mb-0">Configurer votre propre interface</h5>
+          <p>vois nos options de tableau de board</p>
         </div>
-        <div class="mt-4 float-end" @click="toggle">
-          <button class="p-0 btn btn-link text-dark fixed-plugin-close-button">
-            <i class="material-icons">clear</i>
-          </button>
-        </div>
+
         <!-- End Toggle Button -->
       </div>
       <hr class="my-1 horizontal dark" />
       <div class="pt-0 card-body pt-sm-3">
         <!-- Sidebar Backgrounds -->
         <div>
-          <h6 class="mb-0">Sidebar Colors</h6>
+          <h6 class="mb-0">Coleurs de la barre latérale</h6>
         </div>
         <a href="#" class="switch-trigger background-color">
           <div
@@ -64,8 +67,8 @@
         </a>
         <!-- Sidenav Type -->
         <div class="mt-3">
-          <h6 class="mb-0">Sidenav Type</h6>
-          <p class="text-sm">Choose between 2 different sidenav types.</p>
+          <h6 class="mb-0">Type de théme</h6>
+          <p class="text-sm">Choisis votre théme</p>
         </div>
         <div class="d-flex">
           <button
@@ -78,7 +81,7 @@
             "
             @click="sidebarType('bg-gradient-dark')"
           >
-            Dark
+            Foncée
           </button>
           <button
             id="btn-transparent"
@@ -98,17 +101,17 @@
             "
             @click="sidebarType('bg-white')"
           >
-            White
+            Blanc
           </button>
         </div>
-        <p class="text-sm d-xl-none d-block mt-2">
+        <!-- <p class="text-sm d-xl-none d-block mt-2">
           You can change the sidenav type just on desktop view.
-        </p>
+        </p> -->
 
         <!-- Navbar Fixed -->
         <hr class="horizontal dark my-3" />
         <div class="mt-2 d-flex">
-          <h6 class="mb-0">Light / Dark</h6>
+          <h6 class="mb-0">Clair / Foncé</h6>
           <div class="form-check form-switch ps-0 ms-auto my-auto">
             <input
               class="form-check-input mt-1 ms-auto"
@@ -120,7 +123,7 @@
         </div>
         <hr class="horizontal dark my-sm-4" />
 
-        <a
+        <!-- <a
           class="btn btn-outline-dark w-100"
           href="https://www.creative-tim.com/learning-lab/vue/overview/material-dashboard/"
           >View documentation</a
@@ -141,7 +144,7 @@
           >
             <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
