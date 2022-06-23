@@ -97,7 +97,11 @@
                     </div>
                     <div class="text-center">
                       <button
-                        :disabled="loading || dt.payed == false"
+                        :disabled="
+                          loading ||
+                          dt.payed == false ||
+                          dt.user_payed_id !== this.currentUserId()
+                        "
                         type="submit"
                         class="btn btn-outline-success"
                         @click="addPre_app(dt), (snackbar = 'success')"
@@ -151,6 +155,7 @@ import axios from "axios";
 import timedispoService from "../../services/timedispo.service";
 import preAppService from "../../services/preApp.service";
 import paiementService from "../../services/paiement.service";
+import modelService from "../../services/model.service";
 export default {
   name: "prendrerdv",
   components: {
@@ -163,12 +168,15 @@ export default {
       snackbar: null,
       typeRDV: "visio",
       existingPreApp: null,
+      userAmount: null,
     };
   },
   async mounted() {
     this.existingPreApp = await preAppService.checkExistingPreApp(
       this.$route.params.id
     );
+    this.userAmount = await modelService.getDoctorById(this.$route.params.id);
+    this.userAmount = this.userAmount[0].prixConsultation;
   },
   computed: {
     changedDate() {
@@ -194,8 +202,8 @@ export default {
       this.snackbar = null;
     },
     async addPre_app(ev) {
-      const check = await paiementService.getPaiementDetails(ev.paiement_id);
-      console.log("check", check);
+      // const check = await paiementService.getPaiementDetails(ev.paiement_id);
+      // console.log("check", check);
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       if (this.existingPreApp >= 1) {
@@ -221,7 +229,11 @@ export default {
       }
     },
     async addPaiement(ev) {
-      const paiment = await paiementService.addnewPaiement(ev);
+      const pay = {
+        doctor_id: ev.doctor_id,
+        amount: this.userAmount,
+      };
+      const paiment = await paiementService.addnewPaiement(pay);
       console.log("paiement", paiment.data);
       await this.delay(5000);
       const check = await paiementService.getPaiementDetails(
@@ -239,6 +251,9 @@ export default {
       return new Promise(function (resolve) {
         setTimeout(resolve, time);
       });
+    },
+    currentUserId() {
+      return this.$store.state.auth.user.id;
     },
   },
 };

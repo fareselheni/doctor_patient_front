@@ -18,6 +18,7 @@ class TimedispoService {
     return axios.put(API_URL + "updateByPaiementId", {
       paiement_id: event.paiement_id,
       payed: event.payed,
+      user_payed_id: store.state.auth.user.id,
     });
   }
   async allevents() {

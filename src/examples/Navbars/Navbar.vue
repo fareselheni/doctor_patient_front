@@ -155,7 +155,7 @@ export default {
 </script>
 
 <style scoped>
-.yellow-color {
+/* .yellow-color {
   color: green;
-}
+} */
 </style>
