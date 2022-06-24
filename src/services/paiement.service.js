@@ -25,5 +25,11 @@ class PaiementService {
     );
     return response.data;
   }
+  async updateByPaiementId(event) {
+    return axios.put(API_URL + "updatePaiementByPaiementId", {
+      paiement_id: event.paiement_id,
+      status: event.status,
+    });
+  }
 }
 export default new PaiementService();

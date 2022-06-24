@@ -57,9 +57,12 @@ export default {
     const event = {
       paiement_id: this.$route.query.payment_id,
       payed: true,
+      status: "validé",
     };
-    const check = await timedispoService.updateByPaiementId(event);
-    console.log(check);
+    const updateTimedispo = await timedispoService.updateByPaiementId(event);
+    console.log(updateTimedispo);
+    const updatePaiement = await paiementService.updateByPaiementId(event);
+    console.log(updatePaiement);
     this.payment_id = this.$route.query.payment_id;
     this.paiement = await paiementService.getPaiementbyPaymentId(
       this.payment_id
