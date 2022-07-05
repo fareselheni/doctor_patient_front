@@ -20,6 +20,7 @@ import doctorDashboard from "../views/doctor/doctorDashboard.vue";
 import myPrescriptions from "../views/patient/myPrescriptions.vue";
 import paiementSuccess from "../views/paiement/success.vue";
 import paiementFail from "../views/paiement/fail.vue";
+import patientsList from "../views/doctor/patientsList.vue";
 
 // const doctor = this.$store.state.auth.user.roles[0];
 const routes = [
@@ -75,6 +76,11 @@ const routes = [
     path: "/Dispotime",
     name: "Dispotime",
     component: Dispotime,
+  },
+  {
+    path: "/patientsList",
+    name: "patientsList",
+    component: patientsList,
   },
   {
     path: "/prendrerdv/:id",
