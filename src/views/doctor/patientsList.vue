@@ -20,6 +20,11 @@
                     <th
                       class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
                     >
+                      Photo
+                    </th>
+                    <th
+                      class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7"
+                    >
                       Prenom
                     </th>
                     <th
@@ -47,6 +52,17 @@
                 <tbody>
                   <tr v-for="dt in patientList" :key="dt._id">
                     <td>
+                      <div class="py-1 d-flex">
+                        <div class="my-auto">
+                          <img
+                            :src="dt[0].image"
+                            class="border border-2 avatar avatar-md ms-2"
+                            alt="user image"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
                       <div class="d-flex px-2 py-1">
                         <div>
                           <h6 class="mb-0 text-sm">{{ dt[0].firstname }}</h6>
@@ -70,8 +86,8 @@
                     </td>
                     <td class="align-middle text-center text-sm">
                       <button
-                        @click="deleteRDV(dt)"
-                        class="btn btn-sm btn-danger"
+                        @click="addSignal(dt[0]._id)"
+                        class="btn btn-sm btn-danger mt-2"
                       >
                         Signaler
                       </button>
@@ -91,6 +107,7 @@
 // import axios from "axios";
 import SchedulerService from "../../services/scheduler.service";
 import modelService from "../../services/model.service";
+import signalService from "../../services/signal.service";
 export default {
   name: "mesRendezVous",
   data() {
@@ -124,6 +141,12 @@ export default {
         }
       }
       return list;
+    },
+    async addSignal(id) {
+      //   let ev = {
+      //     user_id: id,
+      //   };
+      await signalService.addnewSignal(id);
     },
   },
 };
