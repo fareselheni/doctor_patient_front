@@ -202,8 +202,6 @@ export default {
       this.snackbar = null;
     },
     async addPre_app(ev) {
-      // const check = await paiementService.getPaiementDetails(ev.paiement_id);
-      // console.log("check", check);
       const user_email = this.$store.state.auth.user.email;
       const user_id = this.$store.state.auth.user.id;
       if (this.existingPreApp >= 1) {
@@ -233,6 +231,7 @@ export default {
         doctor_id: ev.doctor_id,
         amount: this.userAmount,
       };
+      // console.log("pay", pay);
       const paiment = await paiementService.addnewPaiement(pay);
       console.log("paiement", paiment.data);
       await this.delay(5000);

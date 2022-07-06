@@ -16,5 +16,14 @@ class RatingService {
     });
     return response.data;
   }
+  async checkExistingSignal(id) {
+    const response = await axios.get(API_URL + "check", {
+      params: {
+        doctor_id: store.state.auth.user.id,
+        user_id: id,
+      },
+    });
+    return response.data.Signal;
+  }
 }
 export default new RatingService();

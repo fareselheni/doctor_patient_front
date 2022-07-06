@@ -101,21 +101,51 @@
       </div>
     </div>
   </div>
+  <div class="position-fixed top-1 end-1 z-index-2">
+    <vmd-snackbar
+      v-if="snackbar === 'success' && existingSignal === true"
+      title="Notification"
+      date="1 min ago"
+      description="ce profil a été signalé avec success."
+      icon="done"
+      color="white"
+      iconColor="success"
+      :closeHandler="closeSnackbar"
+      iconName="close"
+    />
+    <vmd-snackbar
+      v-if="snackbar === 'success' && existingSignal === false"
+      title="Alert"
+      date="1 min ago"
+      description="Vous ne pouvez signaler un profile qu'une seule fois"
+      icon="error"
+      color="white"
+      iconColor="warning"
+      :closeHandler="closeSnackbar"
+      iconName="close"
+    />
+  </div>
 </template>
 
 <script>
 // import axios from "axios";
+import VmdSnackbar from "@/components/VmdSnackbar.vue";
 import SchedulerService from "../../services/scheduler.service";
 import modelService from "../../services/model.service";
 import signalService from "../../services/signal.service";
 export default {
-  name: "mesRendezVous",
+  name: "patientsList",
   data() {
     return {
       date: "",
       SchedulerpatientList: [],
       patientList: [],
+      snackbar: null,
+      existingSignal: null,
     };
+  },
+  components: {
+    VmdSnackbar,
   },
   async mounted() {
     this.SchedulerpatientList = await SchedulerService.allevents();
@@ -143,10 +173,23 @@ export default {
       return list;
     },
     async addSignal(id) {
-      //   let ev = {
-      //     user_id: id,
-      //   };
-      await signalService.addnewSignal(id);
+      const check = await this.check(id);
+      console.log("check", check);
+      if (check === false) {
+        this.snackbar = "success";
+        this.existingSignal = false;
+      } else {
+        await signalService.addnewSignal(id);
+        this.snackbar = "success";
+        this.existingSignal = true;
+      }
+    },
+    async check(id) {
+      const checkS = await signalService.checkExistingSignal(id);
+      return checkS;
+    },
+    closeSnackbar() {
+      this.snackbar = null;
     },
   },
 };
