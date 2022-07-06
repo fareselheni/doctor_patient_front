@@ -25,5 +25,14 @@ class RatingService {
     });
     return response.data.Signal;
   }
+  async updateUserSignalNb(user_id) {
+    return axios.put(API_URL + "updateSignal", {
+      user_id: user_id,
+    });
+  }
+  async orderPatientBySignal() {
+    const response = await axios.get(API_URL + "patientOrderBySignal", {});
+    return response.data.ordredList;
+  }
 }
 export default new RatingService();

@@ -117,7 +117,7 @@
       v-if="snackbar === 'success' && existingSignal === false"
       title="Alert"
       date="1 min ago"
-      description="Vous ne pouvez signaler un profile qu'une seule fois"
+      description="Vous ne pouvez signaler un profil qu'une seule fois"
       icon="error"
       color="white"
       iconColor="warning"
@@ -180,6 +180,7 @@ export default {
         this.existingSignal = false;
       } else {
         await signalService.addnewSignal(id);
+        await signalService.updateUserSignalNb(id);
         this.snackbar = "success";
         this.existingSignal = true;
       }

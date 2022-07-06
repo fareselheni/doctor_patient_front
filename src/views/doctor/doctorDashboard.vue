@@ -121,7 +121,7 @@ export default {
   async mounted() {
     this.patientList = await SchedulerService.allevents();
     this.patientList = this.getUniqueListBy(this.patientList, "user_name");
-    this.patientLength = this.patientList.length;
+    this.patientLength = this.patientList.length - 1;
     await this.CountWeekAppointments();
   },
 };
