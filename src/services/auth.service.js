@@ -36,5 +36,10 @@ class AuthService {
       prixConsultation: user.prixConsultation,
     });
   }
+  async deleteUser(id) {
+    return axios.delete(API_URL + "delete/" + id).then((response) => {
+      console.log(response);
+    });
+  }
 }
 export default new AuthService();

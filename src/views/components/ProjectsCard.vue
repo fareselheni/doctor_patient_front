@@ -3,10 +3,10 @@
     <div class="card-header pb-0">
       <div class="row">
         <div class="col-lg-6 col-7">
-          <h6>{{ title }}</h6>
+          <h6>Les patients les plus signalés</h6>
           <p class="text-sm mb-0">
-            <i class="fa fa-check text-info" aria-hidden="true"></i>
-            <span class="font-weight-bold ms-1">{{ descBold }}</span> {{ desc }}
+            <!-- <i class="fa fa-check text-info" aria-hidden="true"></i> -->
+            Triée par nombre de signal
           </p>
         </div>
         <div class="col-lg-6 col-5 my-auto text-end">
@@ -52,108 +52,80 @@
               <th
                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                {{ th1 }}
+                Nom & Prenom
               </th>
               <th
                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                {{ th2 }}
+                Email
               </th>
               <th
                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                {{ th3 }}
+                Tel
               </th>
               <th
                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                {{ th4 }}
+                Nombre de signal
+              </th>
+              <th
+                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+              >
+                Action
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="dt in patientList" :key="dt._id">
               <td>
                 <div class="d-flex px-2 py-1">
                   <div>
                     <img
-                      src="../../assets/img/small-logos/logo-xd.svg"
+                      v-if="dt.image"
+                      :src="dt.image"
                       class="avatar avatar-sm me-3"
                       alt="xd"
                     />
+                    <i
+                      v-else
+                      class="material-icons opacity-10 avatar avatar-sm me-3"
+                      aria-hidden="true"
+                      >person</i
+                    >
                   </div>
                   <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">Material XD {{ data1 }}</h6>
+                    <h6 class="mb-0 text-sm">
+                      {{ dt.firstname + " " + dt.lastname }}
+                    </h6>
                   </div>
                 </div>
               </td>
-              <td>
-                <div class="avatar-group mt-2">
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Ryan Tompson"
-                  >
-                    <img src="../../assets/img/team-1.jpg" alt="team1" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Romina Hadid"
-                  >
-                    <img src="../../assets/img/team-2.jpg" alt="team2" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Alexander Smith"
-                  >
-                    <img src="../../assets/img/team-3.jpg" alt="team3" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Jessica Doe"
-                  >
-                    <img src="../../assets/img/team-4.jpg" alt="team4" />
-                  </a>
+              <td class="text-sm">
+                <div class="text-xs font-weight-bold">
+                  {{ dt.email }}
                 </div>
               </td>
               <td class="align-middle text-center text-sm">
-                <span class="text-xs font-weight-bold"> $14,000 </span>
+                <span class="text-xs font-weight-bold">
+                  {{ dt.phone_number }}
+                </span>
               </td>
-              <td class="align-middle">
-                <div class="progress-wrapper w-75 mx-auto">
-                  <div class="progress-info">
-                    <div class="progress-percentage">
-                      <span class="text-xs font-weight-bold">60%</span>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-gradient-info w-60"
-                      role="progressbar"
-                      aria-valuenow="60"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
+              <td class="align-middle text-center text-sm">
+                <span class="badge badge-xl bg-gradient-warning">
+                  {{ dt.nbSignal }}
+                </span>
+              </td>
+              <td class="align-middle text-center text-sm">
+                <button
+                  @click="BlockUser(dt._id, dt.phone_number)"
+                  class="btn btn-sm btn-danger mt-2"
+                >
+                  Bloquer
+                </button>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <div class="d-flex px-2 py-1">
                   <div>
@@ -213,261 +185,7 @@
                   </div>
                 </div>
               </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img
-                      src="../../assets/img/small-logos/logo-slack.svg"
-                      class="avatar avatar-sm me-3"
-                      alt="team7"
-                    />
-                  </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ data3 }}</h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="avatar-group mt-2">
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Romina Hadid"
-                  >
-                    <img src="../../assets/img/team-3.jpg" alt="team8" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Jessica Doe"
-                  >
-                    <img src="../../assets/img/team-1.jpg" alt="team9" />
-                  </a>
-                </div>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="text-xs font-weight-bold"> {{ empty }} </span>
-              </td>
-              <td class="align-middle">
-                <div class="progress-wrapper w-75 mx-auto">
-                  <div class="progress-info">
-                    <div class="progress-percentage">
-                      <span class="text-xs font-weight-bold">100%</span>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-gradient-success w-100"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img
-                      src="../../assets/img/small-logos/logo-spotify.svg"
-                      class="avatar avatar-sm me-3"
-                      alt="spotify"
-                    />
-                  </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ data4 }}</h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="avatar-group mt-2">
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Ryan Tompson"
-                  >
-                    <img src="../../assets/img/team-4.jpg" alt="user1" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Romina Hadid"
-                  >
-                    <img src="../../assets/img/team-3.jpg" alt="user2" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Alexander Smith"
-                  >
-                    <img src="../../assets/img/team-4.jpg" alt="user3" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Jessica Doe"
-                  >
-                    <img src="../../assets/img/team-1.jpg" alt="user4" />
-                  </a>
-                </div>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="text-xs font-weight-bold"> $20,500 </span>
-              </td>
-              <td class="align-middle">
-                <div class="progress-wrapper w-75 mx-auto">
-                  <div class="progress-info">
-                    <div class="progress-percentage">
-                      <span class="text-xs font-weight-bold">100%</span>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-gradient-success w-100"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img
-                      src="../../assets/img/small-logos/logo-jira.svg"
-                      class="avatar avatar-sm me-3"
-                      alt="jira"
-                    />
-                  </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ data5 }}</h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="avatar-group mt-2">
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Ryan Tompson"
-                  >
-                    <img src="../../assets/img/team-4.jpg" alt="user5" />
-                  </a>
-                </div>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="text-xs font-weight-bold"> $500 </span>
-              </td>
-              <td class="align-middle">
-                <div class="progress-wrapper w-75 mx-auto">
-                  <div class="progress-info">
-                    <div class="progress-percentage">
-                      <span class="text-xs font-weight-bold">25%</span>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-gradient-info w-25"
-                      role="progressbar"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="25"
-                    ></div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img
-                      src="../../assets/img/small-logos/logo-invision.svg"
-                      class="avatar avatar-sm me-3"
-                      alt="invision"
-                    />
-                  </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ data6 }}</h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="avatar-group mt-2">
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Ryan Tompson"
-                  >
-                    <img src="../../assets/img/team-1.jpg" alt="user6" />
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="avatar avatar-xs rounded-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title=""
-                    data-bs-original-title="Jessica Doe"
-                  >
-                    <img src="../../assets/img/team-4.jpg" alt="user7" />
-                  </a>
-                </div>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="text-xs font-weight-bold"> $2,000 </span>
-              </td>
-              <td class="align-middle">
-                <div class="progress-wrapper w-75 mx-auto">
-                  <div class="progress-info">
-                    <div class="progress-percentage">
-                      <span class="text-xs font-weight-bold">40%</span>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div
-                      class="progress-bar bg-gradient-info w-40"
-                      role="progressbar"
-                      aria-valuenow="40"
-                      aria-valuemin="0"
-                      aria-valuemax="40"
-                    ></div>
-                  </div>
-                </div>
-              </td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -476,6 +194,10 @@
 </template>
 
 <script>
+import signalService from "../../services/signal.service";
+import blacklistService from "../../services/blacklist.service";
+import authService from "../../services/auth.service";
+
 export default {
   name: "project-card",
   props: {
@@ -546,6 +268,21 @@ export default {
     empty: {
       type: String,
       default: "Not set",
+    },
+  },
+  data() {
+    return {
+      patientList: [],
+    };
+  },
+  async mounted() {
+    this.patientList = await signalService.orderPatientBySignal();
+  },
+  methods: {
+    async BlockUser(id, tel) {
+      await blacklistService.addtoBlacklist(id, tel);
+      await authService.deleteUser(id);
+      this.patientList = await signalService.orderPatientBySignal();
     },
   },
 };
