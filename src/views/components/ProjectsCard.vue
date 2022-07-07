@@ -89,7 +89,7 @@
                     />
                     <i
                       v-else
-                      class="material-icons opacity-10 avatar avatar-sm me-3"
+                      class="material-icons opacity-10 ms-3 me-3"
                       aria-hidden="true"
                       >person</i
                     >

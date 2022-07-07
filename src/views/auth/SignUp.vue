@@ -341,11 +341,26 @@
       </section>
     </main>
   </div>
+  <div class="position-fixed top-1 end-1 z-index-2">
+    <vmd-snackbar
+      v-if="snackbar === 'success'"
+      title="Alert"
+      date="1 min ago"
+      description="Votre numéro est placé dans la liste noire"
+      icon="error"
+      color="white"
+      iconColor="warning"
+      :closeHandler="closeSnackbar"
+      iconName="close"
+    />
+  </div>
 </template>
 
 <script>
 import ModelService from "../../services/model.service";
+import blacklistService from "../../services/blacklist.service";
 import Navbar from "@/examples/PageLayout/Navbar.vue";
+import VmdSnackbar from "@/components/VmdSnackbar.vue";
 // import VmdInput from "@/components/VmdInput.vue";
 import VmdCheckbox from "@/components/VmdCheckbox.vue";
 // import VmdButton from "@/components/VmdButton.vue";
@@ -361,6 +376,7 @@ export default {
     // VmdInput,
     VmdCheckbox,
     // VmdButton,
+    VmdSnackbar,
     Form,
     Field,
     ErrorMessage,
@@ -404,11 +420,13 @@ export default {
     return {
       successful: false,
       loading: false,
+      snackbar: null,
       message: "",
       schema,
       selectedrole: "",
       allspecialites: [],
       allgouvernorats: [],
+      blacklist: [],
       image: "",
       birthdate: "",
     };
@@ -429,6 +447,7 @@ export default {
     },
   },
   async mounted() {
+    this.blacklist = await blacklistService.getBlacklist();
     this.allgouvernorats = await ModelService.allgouvernorats();
     this.allspecialites = await ModelService.allspecialites();
     if (this.loggedIn) {
@@ -436,46 +455,51 @@ export default {
     }
   },
   methods: {
-    handleRegister(user) {
-      const userr = {
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        password: user.password,
-        roles: user.roles,
-        gender: user.gender,
-        phone_number: user.phone_number,
-        adresse: user.adresse,
-        specialite: user.specialite,
-        gouvernorat: user.gouvernorat,
-        numero_inscription_cnom: user.numero_inscription_cnom,
-        image: this.image,
-        birthdate: this.birthdate,
-        prixConsultation: user.prixConsultation,
-      };
-      this.message = "";
-      this.successful = false;
-      this.loading = true;
-      // user.image == "this.schema.image";
-      console.log("user", userr);
-      this.$store.dispatch("auth/register", userr).then(
-        (data) => {
-          this.message = data.message;
-          this.successful = true;
-          this.loading = false;
-          this.$router.push("/sign-in");
-        },
-        (error) => {
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          this.successful = false;
-          this.loading = false;
-        }
-      );
+    async handleRegister(user) {
+      const checkBlackLBefore = await this.checkInBlacklist(user.phone_number);
+      if (checkBlackLBefore === true) {
+        console.log("trueeeeeeeeeeeeeeee");
+        this.snackbar = "success";
+      } else {
+        console.log("faaaaaaaaalse");
+        const userr = {
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          password: user.password,
+          roles: user.roles,
+          gender: user.gender,
+          phone_number: user.phone_number,
+          adresse: user.adresse,
+          specialite: user.specialite,
+          gouvernorat: user.gouvernorat,
+          numero_inscription_cnom: user.numero_inscription_cnom,
+          image: this.image,
+          birthdate: this.birthdate,
+          prixConsultation: user.prixConsultation,
+        };
+        this.message = "";
+        this.successful = false;
+        this.loading = true;
+        this.$store.dispatch("auth/register", userr).then(
+          (data) => {
+            this.message = data.message;
+            this.successful = true;
+            this.loading = false;
+            this.$router.push("/sign-in");
+          },
+          (error) => {
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+            this.successful = false;
+            this.loading = false;
+          }
+        );
+      }
     },
     convertToBase64(file) {
       return new Promise((resolve, reject) => {
@@ -489,6 +513,9 @@ export default {
         };
       });
     },
+    closeSnackbar() {
+      this.snackbar = null;
+    },
     //ajouter une image
     async handleFileUpload(e) {
       const file = e.target.files[0];
@@ -496,6 +523,20 @@ export default {
       // this.schema.image == base64;
       this.image = base64;
       // console.log("image", this.schema.image);
+    },
+    async checkInBlacklist(tel) {
+      try {
+        let check = false;
+        for (let index = 0; index < this.blacklist.length; index++) {
+          const element = this.blacklist[index];
+          if (element.phone_number === tel) {
+            check = true;
+          }
+        }
+        return check;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   created() {
