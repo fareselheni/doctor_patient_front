@@ -21,6 +21,7 @@ import myPrescriptions from "../views/patient/myPrescriptions.vue";
 import paiementSuccess from "../views/paiement/success.vue";
 import paiementFail from "../views/paiement/fail.vue";
 import patientsList from "../views/doctor/patientsList.vue";
+import gestionAdmin from "../views/admin/GestionAdmin.vue";
 
 // const doctor = this.$store.state.auth.user.roles[0];
 const routes = [
@@ -36,6 +37,11 @@ const routes = [
     path: "/doctorDashboard",
     name: "doctorDashboard",
     component: doctorDashboard,
+  },
+  {
+    path: "/gestionAdmin",
+    name: "gestionAdmin",
+    component: gestionAdmin,
   },
   {
     path: "/paiementSuccess",

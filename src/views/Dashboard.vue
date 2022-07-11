@@ -50,10 +50,10 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-lg-6 col-md-6 mt-4">
+          <div class="col-lg-4 col-md-6 mt-4">
             <chart-bars />
           </div>
-          <div class="col-lg-6 col-md-6 mt-4">
+          <div class="col-lg-4 col-md-6 mt-4">
             <chart-line />
           </div>
           <div class="col-lg-4 mt-4">
@@ -81,7 +81,7 @@ import MiniCards from "./components/MiniCards.vue";
 import ProjectsCard from "./components/ProjectsCard.vue";
 import OrdersCard from "./components/OrdersCard.vue";
 import DoctorApiService from "../services/admin_api.service";
-import SchedulerService from "../services/scheduler.service";
+import ModelService from "../services/model.service";
 
 export default {
   name: "dashboard-default",
@@ -103,6 +103,8 @@ export default {
       PourcentageMonthAppointments: 0,
       patientList: [],
       patientLength: 0,
+      DoctorList: [],
+      doctorLength: 0,
     };
   },
   methods: {
@@ -119,9 +121,10 @@ export default {
     },
   },
   async mounted() {
-    this.patientList = await SchedulerService.allevents();
-    this.patientList = this.getUniqueListBy(this.patientList, "user_name");
-    this.patientLength = this.patientList.length - 1;
+    this.patientList = await ModelService.allpatients();
+    this.patientLength = await this.patientList.length;
+    this.patientList = await ModelService.alldoctors();
+    this.doctorLength = await this.DoctorList.length;
     await this.CountWeekAppointments();
   },
 };
