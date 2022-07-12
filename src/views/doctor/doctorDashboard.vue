@@ -63,14 +63,14 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
         <projects-card />
       </div>
       <div class="col-lg-4 col-md-6">
         <orders-card />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -78,8 +78,8 @@ import ChartBars from "./components/DoctorChartBars.vue";
 import ChartLine from "./components/DoctorChartLine.vue";
 import ChartLineTasks from "../components/ChartLineTasks.vue";
 import MiniCards from "../components/MiniCards.vue";
-import ProjectsCard from "../components/ProjectsCard.vue";
-import OrdersCard from "../components/OrdersCard.vue";
+// import ProjectsCard from "../components/ProjectsCard.vue";
+// import OrdersCard from "../components/OrdersCard.vue";
 import DoctorApiService from "../../services/doctor_api.service";
 import SchedulerService from "../../services/scheduler.service";
 
@@ -90,8 +90,8 @@ export default {
     ChartLine,
     ChartLineTasks,
     MiniCards,
-    ProjectsCard,
-    OrdersCard,
+    // ProjectsCard,
+    // OrdersCard,
   },
   data() {
     return {

@@ -365,7 +365,6 @@ import VmdSnackbar from "@/components/VmdSnackbar.vue";
 import VmdCheckbox from "@/components/VmdCheckbox.vue";
 // import VmdButton from "@/components/VmdButton.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
-//Form, Field,
 import * as yup from "yup";
 const body = document.getElementsByTagName("body")[0];
 
