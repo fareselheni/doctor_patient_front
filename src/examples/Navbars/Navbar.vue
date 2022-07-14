@@ -75,7 +75,11 @@
               aria-expanded="false"
               @click="showMenu = !showMenu"
             >
-              <i class="material-icons cursor-pointer yellow-color">
+              <i
+                @click="notifClicked"
+                id="notif"
+                class="material-icons cursor-pointer"
+              >
                 notifications
               </i>
             </a>
@@ -118,6 +122,7 @@ import VmdInput from "@/components/VmdInput.vue";
 import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations } from "vuex";
 import NotificationService from "../../services/notification.service";
+import notificationService from "../../services/notification.service";
 
 export default {
   name: "navbar",
@@ -137,6 +142,21 @@ export default {
     toggleSidebar() {
       this.navbarMinimize();
     },
+    async notifClicked() {
+      for (let index = 0; index < this.NotificationList.length; index++) {
+        const element = this.NotificationList[index];
+        await notificationService.UpdateSeen(element._id);
+        this.NotificationList = await NotificationService.allNotifications();
+      }
+    },
+    async CheckSeen() {
+      for (let index = 0; index < this.NotificationList.length; index++) {
+        const element = this.NotificationList[index];
+        if (element.seen === false) {
+          document.getElementById("notif").classList.add("green-color");
+        }
+      }
+    },
   },
   components: {
     Breadcrumbs,
@@ -150,12 +170,13 @@ export default {
   async mounted() {
     this.NotificationList = await NotificationService.allNotifications();
     console.log("notification", this.NotificationList);
+    await this.CheckSeen();
   },
 };
 </script>
 
 <style scoped>
-/* .yellow-color {
-  color: green;
-} */
+.green-color {
+  color: #1aff1a;
+}
 </style>

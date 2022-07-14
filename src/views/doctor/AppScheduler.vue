@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container py-4">
     <scheduler
-      class="left-container"
+      class="left-container border border-2"
       :events="events"
       @event-updated="logEventUpdate"
       v-if="rend"
@@ -94,7 +94,7 @@ body {
 .left-container {
   overflow: hidden;
   position: relative;
-  height: 100vh;
+  height: 90vh;
   display: inline-block;
   width: 100%;
 }

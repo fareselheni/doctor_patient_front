@@ -95,7 +95,7 @@
             ACCOUNT PAGES
           </h6>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <sidenav-collapse
             url="#"
             :aria-controls="''"
@@ -107,7 +107,7 @@
               <i class="material-icons-round opacity-10 fs-5">person</i>
             </template>
           </sidenav-collapse>
-        </li>
+        </li> -->
         <li class="nav-item">
           <sidenav-collapse
             url="#"
@@ -303,7 +303,7 @@
             ACCOUNT PAGES
           </h6>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link to="/profile">
             <sidenav-collapse
               url="#"
@@ -317,7 +317,7 @@
               </template>
             </sidenav-collapse>
           </router-link>
-        </li>
+        </li> -->
         <li class="nav-item">
           <sidenav-collapse
             url="#"

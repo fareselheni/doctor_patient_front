@@ -71,6 +71,11 @@ class NotificationService {
       user_id: store.state.auth.user.id,
     });
   }
+  async UpdateSeen(event) {
+    return axios.put(API_URL + "updateSeen", {
+      id: event,
+    });
+  }
 }
 
 export default new NotificationService();

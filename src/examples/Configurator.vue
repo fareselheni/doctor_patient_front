@@ -17,7 +17,7 @@
             </button>
           </div>
           <h5 class="mt-3 mb-0">Configurer votre propre interface</h5>
-          <p>vois nos options de tableau de board</p>
+          <!-- <p>vois nos options de tableau de board</p> -->
         </div>
 
         <!-- End Toggle Button -->
