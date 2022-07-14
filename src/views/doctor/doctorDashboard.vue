@@ -50,15 +50,15 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-lg-4 col-md-6 mt-4">
+          <div class="col-lg-6 col-md-6 mt-4">
             <chart-bars />
           </div>
-          <div class="col-lg-4 col-md-6 mt-4">
+          <div class="col-lg-6 col-md-6 mt-4">
             <chart-line />
           </div>
-          <div class="col-lg-4 mt-4">
+          <!-- <div class="col-lg-4 mt-4">
             <chart-line-tasks />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
 <script>
 import ChartBars from "./components/DoctorChartBars.vue";
 import ChartLine from "./components/DoctorChartLine.vue";
-import ChartLineTasks from "../components/ChartLineTasks.vue";
+// import ChartLineTasks from "../components/ChartLineTasks.vue";
 import MiniCards from "../components/MiniCards.vue";
 // import ProjectsCard from "../components/ProjectsCard.vue";
 // import OrdersCard from "../components/OrdersCard.vue";
@@ -88,7 +88,7 @@ export default {
   components: {
     ChartBars,
     ChartLine,
-    ChartLineTasks,
+    // ChartLineTasks,
     MiniCards,
     // ProjectsCard,
     // OrdersCard,

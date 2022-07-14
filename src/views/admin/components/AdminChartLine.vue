@@ -41,7 +41,7 @@ export default {
     },
     date: {
       type: String,
-      default: "campaign sent 2 days ago",
+      default: "Dernière année",
     },
   },
   data() {

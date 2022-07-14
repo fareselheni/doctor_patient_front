@@ -2,6 +2,14 @@ import axios from "axios";
 import store from "../store";
 const API_URL = "http://localhost:3000/api/dashboard/admin/";
 class DoctorApiService {
+  async CountAllAppointments() {
+    const response = await axios.get(API_URL + "allApp", {
+      params: {
+        doctor_id: store.state.auth.user.id,
+      },
+    });
+    return response.data.result;
+  }
   async CountWeekAppointments() {
     const response = await axios.get(API_URL + "countWeekApp", {
       params: {

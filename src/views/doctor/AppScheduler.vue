@@ -6,7 +6,7 @@
       @event-updated="logEventUpdate"
       v-if="rend"
     ></scheduler>
-    <div class="right-container">
+    <!-- <div class="right-container">
       <ul class="scheduler-messages">
         <li
           class="scheduler-message"
@@ -16,7 +16,7 @@
           {{ message }}
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -96,7 +96,7 @@ body {
   position: relative;
   height: 100vh;
   display: inline-block;
-  width: 60vw;
+  width: 100%;
 }
 
 .right-container {
