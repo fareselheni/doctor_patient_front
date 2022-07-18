@@ -39,15 +39,47 @@
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <mini-cards
-              title="Total des patients"
-              :value="patientLength"
-              percentage="+5%"
-              iconName="person"
-              detail="Just updated"
+              title="Total des rendez-vous"
+              :value="AllApp"
+              percentage=""
+              iconName="weekend"
+              detail="."
               iconClass="text-white"
               iconBackground="bg-gradient-info"
             />
           </div>
+        </div>
+        <div class="row d-flex justify-content-evenly pt-4">
+          <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+            <length-mini-cards
+              title="Score actuel"
+              :value="doctorscore.toFixed(2)"
+              iconName="person"
+              detail=""
+              iconClass="text-white"
+              iconBackground="bg-gradient-info"
+            />
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+            <length-mini-cards
+              title="Total des patients"
+              :value="patientLength"
+              iconName="person"
+              detail=""
+              iconClass="text-white"
+              iconBackground="bg-gradient-info"
+            />
+          </div>
+          <!-- <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+            <length-mini-cards
+              title="Total des docteurs"
+              :value="22"
+              iconName="person"
+              detail=""
+              iconClass="text-white"
+              iconBackground="bg-gradient-info"
+            />
+          </div> -->
         </div>
         <div class="row mt-4">
           <div class="col-lg-6 col-md-6 mt-4">
@@ -78,10 +110,12 @@ import ChartBars from "./components/DoctorChartBars.vue";
 import ChartLine from "./components/DoctorChartLine.vue";
 // import ChartLineTasks from "../components/ChartLineTasks.vue";
 import MiniCards from "../components/MiniCards.vue";
+import lengthMiniCards from "../components/lengthMiniCards.vue";
 // import ProjectsCard from "../components/ProjectsCard.vue";
 // import OrdersCard from "../components/OrdersCard.vue";
 import DoctorApiService from "../../services/doctor_api.service";
 import SchedulerService from "../../services/scheduler.service";
+import ratingService from "../../services/rating.service";
 
 export default {
   name: "dashboard-doctor",
@@ -90,11 +124,13 @@ export default {
     ChartLine,
     // ChartLineTasks,
     MiniCards,
+    lengthMiniCards,
     // ProjectsCard,
     // OrdersCard,
   },
   data() {
     return {
+      AllApp: 0,
       TodayAppointmentsCount: 0,
       PourcentageTodayAppointments: 0,
       WeekAppointmentsCount: 0,
@@ -103,6 +139,7 @@ export default {
       PourcentageMonthAppointments: 0,
       patientList: [],
       patientLength: 0,
+      doctorscore: 0,
     };
   },
   methods: {
@@ -117,12 +154,19 @@ export default {
     getUniqueListBy(arr, key) {
       return [...new Map(arr.map((item) => [item[key], item])).values()];
     },
+    async getDoctorScore() {
+      this.doctorscore = await ratingService.getScore(
+        this.$store.state.auth.user.id
+      );
+    },
   },
   async mounted() {
+    this.AllApp = await DoctorApiService.CountAllAppointments();
     this.patientList = await SchedulerService.allevents();
     this.patientList = this.getUniqueListBy(this.patientList, "user_name");
     this.patientLength = this.patientList.length - 1;
     await this.CountWeekAppointments();
+    await this.getDoctorScore();
   },
 };
 </script>

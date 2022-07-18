@@ -147,8 +147,10 @@ export default {
         const element = this.NotificationList[index];
         await notificationService.UpdateSeen(element._id);
         this.NotificationList = await NotificationService.allNotifications();
+        document.getElementById("notif").classList.remove("green-color");
       }
     },
+
     async CheckSeen() {
       for (let index = 0; index < this.NotificationList.length; index++) {
         const element = this.NotificationList[index];
