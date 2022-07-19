@@ -3,7 +3,7 @@
     <div class="row mb-4">
       <div class="col-lg-12 position-relative z-index-2">
         <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <mini-cards
               title="RDV aujourd'hui"
               :value="TodayAppointmentsCount"
@@ -14,7 +14,7 @@
               iconBackground="bg-gradient-dark"
             />
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <mini-cards
               title="RDV cette semaine"
               :value="WeekAppointmentsCount"
@@ -25,7 +25,7 @@
               iconBackground="bg-gradient-primary"
             />
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <mini-cards
               title="RDV ce mois"
               :value="CountThisMonthAppointments"
@@ -37,9 +37,9 @@
               iconBackground="bg-gradient-success"
             />
           </div>
-          <!-- <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
+          <div class="col-lg-3 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <mini-cards
-              title="Total des RDV"
+              title="Total des rendez-vous"
               :value="AllApp"
               valueColor="text-danger"
               iconName="weekend"
@@ -47,13 +47,13 @@
               iconClass="text-white"
               iconBackground="bg-gradient-success"
             />
-          </div> -->
+          </div>
         </div>
         <div class="row d-flex justify-content-evenly pt-4">
           <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <length-mini-cards
-              title="Total des rendez-vous"
-              :value="AllApp"
+              title="total rendez-vous annulés"
+              :value="canceledApp"
               iconName="weekend"
               detail=""
               iconClass="text-white"
@@ -130,6 +130,7 @@ export default {
   data() {
     return {
       AllApp: 0,
+      canceledApp: 0,
       TodayAppointmentsCount: 0,
       PourcentageTodayAppointments: 0,
       WeekAppointmentsCount: 0,
@@ -145,6 +146,7 @@ export default {
   methods: {
     async CountWeekAppointments() {
       this.AllApp = await DoctorApiService.CountAllAppointments();
+      this.canceledApp = await DoctorApiService.CountCanceledAppointments();
       this.TodayAppointmentsCount = await DoctorApiService.CountTodayAppointments();
       this.PourcentageTodayAppointments = await DoctorApiService.PourcentageTodayAppointments();
       this.WeekAppointmentsCount = await DoctorApiService.CountWeekAppointments();

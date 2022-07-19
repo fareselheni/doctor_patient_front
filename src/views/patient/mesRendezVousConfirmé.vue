@@ -40,7 +40,12 @@
                     <th
                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                     >
-                      STATUS
+                      Meet Link
+                    </th>
+                    <th
+                      class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                    >
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -69,9 +74,17 @@
                       }}</span>
                     </td>
                     <td class="align-middle text-center text-sm">
-                      <span class="badge badge-sm bg-gradient-success"
-                        >Confirmé</span
+                      <span class="text-secondary text-xs font-weight-bold">{{
+                        dt.meet_link
+                      }}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <button
+                        @click="deleteRDV(dt)"
+                        class="btn btn-sm btn-danger"
                       >
+                        Supprimer
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -85,6 +98,7 @@
 </template>
 
 <script>
+import schedulerService from "../../services/scheduler.service";
 import SchedulerService from "../../services/scheduler.service";
 export default {
   name: "mesRendezVousConfirmé",
@@ -98,6 +112,12 @@ export default {
   async mounted() {
     this.mesRdvs = await SchedulerService.patientallConfirmedevents();
     console.log("this.mesRdvs", this.mesRdvs);
+  },
+  methods: {
+    async deleteRDV(ev) {
+      await schedulerService.deleteevent(ev);
+      this.mesRdvs = await SchedulerService.patientallConfirmedevents();
+    },
   },
 };
 </script>

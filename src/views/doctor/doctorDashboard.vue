@@ -52,6 +52,16 @@
         <div class="row d-flex justify-content-evenly pt-4">
           <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
             <length-mini-cards
+              title="total rendez-vous annulés"
+              :value="canceledApp"
+              iconName="person"
+              detail=""
+              iconClass="text-white"
+              iconBackground="bg-gradient-info"
+            />
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
+            <length-mini-cards
               title="Score actuel"
               :value="doctorscore.toFixed(2)"
               iconName="person"
@@ -70,16 +80,6 @@
               iconBackground="bg-gradient-info"
             />
           </div>
-          <!-- <div class="col-lg-4 col-md-6 col-sm-6 mt-lg-0 mt-4">
-            <length-mini-cards
-              title="Total des docteurs"
-              :value="22"
-              iconName="person"
-              detail=""
-              iconClass="text-white"
-              iconBackground="bg-gradient-info"
-            />
-          </div> -->
         </div>
         <div class="row mt-4">
           <div class="col-lg-6 col-md-6 mt-4">
@@ -131,6 +131,7 @@ export default {
   data() {
     return {
       AllApp: 0,
+      canceledApp: 0,
       TodayAppointmentsCount: 0,
       PourcentageTodayAppointments: 0,
       WeekAppointmentsCount: 0,
@@ -162,6 +163,7 @@ export default {
   },
   async mounted() {
     this.AllApp = await DoctorApiService.CountAllAppointments();
+    this.canceledApp = await DoctorApiService.CountCanceledAppointments();
     this.patientList = await SchedulerService.allevents();
     this.patientList = this.getUniqueListBy(this.patientList, "user_name");
     this.patientLength = this.patientList.length - 1;

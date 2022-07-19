@@ -10,6 +10,14 @@ class DoctorApiService {
     });
     return response.data.result;
   }
+  async CountCanceledAppointments() {
+    const response = await axios.get(API_URL + "canceledApp", {
+      params: {
+        doctor_id: store.state.auth.user.id,
+      },
+    });
+    return response.data.result;
+  }
   async CountWeekAppointments() {
     const response = await axios.get(API_URL + "countWeekApp", {
       params: {
