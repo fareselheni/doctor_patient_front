@@ -175,7 +175,7 @@
                   <label id="drug" class="ps-3">Liste des médicaments</label>
                 </div>
               </div>
-              <div class="w-50 pt-2 m-auto d-flex justify-content-center">
+              <!-- <div class="w-50 pt-2 m-auto d-flex justify-content-center">
                 <button
                   class="btn btn-outline-success btn-sm"
                   @click="exportToPDF"
@@ -184,7 +184,7 @@
                     >file_download
                   </i>
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

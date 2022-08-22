@@ -187,11 +187,11 @@
                             >
                           </div>
 
-                          <ErrorMessage
+                          <!-- <ErrorMessage
                             name="gender"
                             class="error-feedback mx-5"
                             style="color: red"
-                          />
+                          /> -->
                         </div>
                       </div>
                       <div class="mb-3">
@@ -227,11 +227,11 @@
                               >Patient</label
                             >
                           </div>
-                          <ErrorMessage
+                          <!-- <ErrorMessage
                             name="roles"
                             class="error-feedback mx-5"
                             style="color: red"
-                          />
+                          /> -->
                         </div>
                       </div>
 
@@ -295,7 +295,7 @@
                           style="color: red"
                         />
                       </div>
-                      <vmd-checkbox
+                      <!-- <vmd-checkbox
                         id="flexCheckDefault"
                         class="font-weight-light"
                         checked
@@ -306,7 +306,7 @@
                           class="text-dark font-weight-bolder"
                           >les termes et conditions</a
                         >
-                      </vmd-checkbox>
+                      </vmd-checkbox> -->
                       <div class="text-center">
                         <button
                           :disabled="loading"
@@ -362,7 +362,7 @@ import blacklistService from "../../services/blacklist.service";
 import Navbar from "@/examples/PageLayout/Navbar.vue";
 import VmdSnackbar from "@/components/VmdSnackbar.vue";
 // import VmdInput from "@/components/VmdInput.vue";
-import VmdCheckbox from "@/components/VmdCheckbox.vue";
+// import VmdCheckbox from "@/components/VmdCheckbox.vue";
 // import VmdButton from "@/components/VmdButton.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
@@ -373,7 +373,7 @@ export default {
   components: {
     Navbar,
     // VmdInput,
-    VmdCheckbox,
+    // VmdCheckbox,
     // VmdButton,
     VmdSnackbar,
     Form,

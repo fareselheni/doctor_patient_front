@@ -227,24 +227,28 @@ export default {
       }
     },
     async addPaiement(ev) {
-      const pay = {
-        doctor_id: ev.doctor_id,
-        amount: this.userAmount,
-      };
-      // console.log("pay", pay);
-      const paiment = await paiementService.addnewPaiement(pay);
-      console.log("paiement", paiment.data);
-      await this.delay(5000);
-      const check = await paiementService.getPaiementDetails(
-        paiment.data.result.payment_id
-      );
-      console.log("check", check);
-      const eventToUpdate = {
-        id: ev._id,
-        paiement_id: paiment.data.result.payment_id,
-      };
-      await timedispoService.updatetimedispo(eventToUpdate);
-      window.open(paiment.data.result.link);
+      if (this.existingPreApp >= 1) {
+        console.log("cannot");
+      } else {
+        const pay = {
+          doctor_id: ev.doctor_id,
+          amount: this.userAmount,
+        };
+        // console.log("pay", pay);
+        const paiment = await paiementService.addnewPaiement(pay);
+        console.log("paiement", paiment.data);
+        await this.delay(5000);
+        const check = await paiementService.getPaiementDetails(
+          paiment.data.result.payment_id
+        );
+        console.log("check", check);
+        const eventToUpdate = {
+          id: ev._id,
+          paiement_id: paiment.data.result.payment_id,
+        };
+        await timedispoService.updatetimedispo(eventToUpdate);
+        window.open(paiment.data.result.link);
+      }
     },
     async delay(time) {
       return new Promise(function (resolve) {
