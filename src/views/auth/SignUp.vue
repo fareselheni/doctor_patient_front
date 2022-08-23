@@ -28,7 +28,6 @@
                       require('@/assets/img/illustrations/f_doc.jpg') +
                       ')',
                   }"
-                  style="background-repeat: no-repeat"
                 ></div>
               </div>
               <div
@@ -457,10 +456,8 @@ export default {
     async handleRegister(user) {
       const checkBlackLBefore = await this.checkInBlacklist(user.phone_number);
       if (checkBlackLBefore === true) {
-        console.log("trueeeeeeeeeeeeeeee");
         this.snackbar = "success";
       } else {
-        console.log("faaaaaaaaalse");
         const userr = {
           firstname: user.firstname,
           lastname: user.lastname,
